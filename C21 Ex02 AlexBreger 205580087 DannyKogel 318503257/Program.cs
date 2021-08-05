@@ -15,9 +15,9 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             boardUi.printBoard();
             Console.ReadKey();
         }
-        // Board Class
-        // Chip Class
-        // Initiate GamePlay method (taht indicates if the game is on) ('Q' stops the game and gives a point to the oponnent)
+        // Board Class - done
+        // Chip Class (options to pick from) - done
+        // Initiate GamePlay method (that indicates if the game is on) ('Q' stops the game and gives a point to the oponnent)
         // Intiate board size method
         // PVE or PVP game (if pve, user starts)
         // Print board method
@@ -25,7 +25,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         // Check if column full method
         // Check if win condition is true (WIN OR TIE)
         // Initiate player's turn method?
-        // If game ends, ask for another round. If another round, continue with same board and score.
+        // If game ends, ask for another round. If another round, continue with same board size and score.
 
     }
 }

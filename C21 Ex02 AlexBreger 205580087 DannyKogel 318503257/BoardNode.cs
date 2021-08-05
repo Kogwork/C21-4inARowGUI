@@ -8,13 +8,14 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 {
     class BoardNode
     {
+        private const string mk_DefaultEmptySpaceValue = "X";
         private bool m_Occupied;
-        private char m_PlayerSymbol;
+        private string m_PlayerSymbol;
         
         public BoardNode()
         {
-            m_Occupied = false;
-            m_PlayerSymbol = ' ';
+            Occupied = false;
+            PlayerSymbol = mk_DefaultEmptySpaceValue;
         }
 
         public bool Occupied
@@ -30,7 +31,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
         }
 
-        public char PlayerSymbol
+        public string PlayerSymbol
         {
             get
             {
