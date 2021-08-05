@@ -11,6 +11,9 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         static void Main(string[] args)
         {
             Board board = new Board();
+            BoardUi boardUi = new BoardUi(board);
+            boardUi.printBoard();
+            Console.ReadKey();
         }
         // Board Class
         // Chip Class

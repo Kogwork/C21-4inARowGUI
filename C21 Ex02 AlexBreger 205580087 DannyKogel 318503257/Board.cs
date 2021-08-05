@@ -14,14 +14,14 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private const byte mk_MinSize = 4;
         private static byte m_Rows;
         private static byte m_Columns;
-        //BoardNode boardNode;
+        BoardNode m_BoardNode;
         //Ex02.ConsoleUtils.Screen m_Screen = new Ex02.ConsoleUtils.Screen();
 
         public Board()
         {
-            Rows = 10;
-            Columns = 10;
-            BoardNode[,] board = new BoardNode[Board.Rows, Board.Columns];
+            Rows = userInput();
+            Columns = userInput();
+            BoardNode[,] board = new BoardNode[Rows, Columns];
         }
 
         public static byte Rows
@@ -33,12 +33,6 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
             set
             {
-                string input;
-                do
-                {
-                    Console.WriteLine(string.Format("Please insert the size of the rows. Should be atleast {0} and no more than {1}", mk_MinSize, mk_MaxSize));
-                    input = Console.ReadLine();
-                } while (!(Byte.TryParse(input, out value) || checkBoardSizeLimits(value)));
                 m_Rows = value;
             }
         }
@@ -51,14 +45,21 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
 
             set
-            {
-                string input;
-                do
-                {
-                    Console.WriteLine(string.Format("Please insert the size of the coulmns. should be atleast {0} and no more than {1}", mk_MinSize, mk_MaxSize));
-                    input = Console.ReadLine();
-                } while (!(Byte.TryParse(input, out value) || checkBoardSizeLimits(value)));
+            { 
                 m_Columns = value;
+            }
+        }
+
+        public BoardNode BoardNode
+        {
+            get
+            {
+                return m_BoardNode;
+            }
+
+            set
+            {
+                m_BoardNode = value;
             }
         }
 
@@ -72,6 +73,20 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
 
             return isSizeLimitOk;
+        }
+
+        private byte userInput()
+        {
+            string input;
+            byte inputInByte;
+
+            do
+            {
+                Console.WriteLine(string.Format("Please insert the size of the coulmns and rows. should be atleast {0} and no more than {1}", mk_MinSize, mk_MaxSize));
+                input = Console.ReadLine();
+            } while (!(Byte.TryParse(input, out inputInByte) && checkBoardSizeLimits(inputInByte)));
+
+            return inputInByte;
         }
 
         /*private static bool checkInputInteger(string i_UserInput)
