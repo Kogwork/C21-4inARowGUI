@@ -12,15 +12,15 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         {
             Board board = new Board();
             BoardUi boardUi = new BoardUi(board);
-            boardUi.printBoard();
+            GamePlay gamePlay = new GamePlay(board);
             Console.ReadKey();
         }
         // Board Class - done
         // Chip Class (options to pick from) - done
-        // Initiate GamePlay method (that indicates if the game is on) ('Q' stops the game and gives a point to the oponnent)
-        // Intiate board size method
-        // PVE or PVP game (if pve, user starts)
-        // Print board method
+        // Initiate GamePlay method (that indicates if the game is on) ('Q' stops the game and gives a point to the oponnent) - done
+        // Intiate board size method - done
+        // PVE or PVP game (if pve, user starts) - done
+        // Print board method - done
         // Insert into board method
         // Check if column full method
         // Check if win condition is true (WIN OR TIE)

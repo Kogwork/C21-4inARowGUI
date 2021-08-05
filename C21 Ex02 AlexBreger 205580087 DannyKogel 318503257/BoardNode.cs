@@ -8,26 +8,26 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 {
     class BoardNode
     {
-        private const string mk_DefaultEmptySpaceValue = "X";
-        private bool m_Occupied;
+        private const string mk_DefaultEmptySpaceValue = " ";
+        private bool m_Free;
         private string m_PlayerSymbol;
         
         public BoardNode()
         {
-            Occupied = false;
+            Free = true;
             PlayerSymbol = mk_DefaultEmptySpaceValue;
         }
 
-        public bool Occupied
+        public bool Free
         {
             get
             {
-                return m_Occupied;
+                return m_Free;
             }
 
             set
             {
-                m_Occupied = value;
+                m_Free = value;
             }
         }
 
