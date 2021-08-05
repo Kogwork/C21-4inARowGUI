@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 {
-    class GamePlay
+    class BoardUi
     {
-        //checkIfPlayAgainstHuman();
-        //checkIfPlayerWantsAnotherRound();
 
+        //printBoard();
     }
 }

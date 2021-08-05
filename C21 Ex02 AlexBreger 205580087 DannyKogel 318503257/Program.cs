@@ -8,8 +8,12 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 {
     class Program
     {
-        //Board Class
-        //Chip Class
+        static void Main(string[] args)
+        {
+            Board board = new Board();
+        }
+        // Board Class
+        // Chip Class
         // Initiate GamePlay method (taht indicates if the game is on) ('Q' stops the game and gives a point to the oponnent)
         // Intiate board size method
         // PVE or PVP game (if pve, user starts)
