@@ -12,19 +12,19 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
     {
         private const byte mk_MaxSize = 7;
         private const byte mk_MinSize = 4;
-        private static string m_Rows;
-        private static string m_Columns;
+        private static byte m_Rows;
+        private static byte m_Columns;
         //BoardNode boardNode;
         //Ex02.ConsoleUtils.Screen m_Screen = new Ex02.ConsoleUtils.Screen();
 
         public Board()
         {
-            Rows = "10";
-            Columns = "10";
-            BoardNode[,] board = new BoardNode[byte.Parse(Board.Rows), byte.Parse(Board.Columns)];
+            Rows = 10;
+            Columns = 10;
+            BoardNode[,] board = new BoardNode[Board.Rows, Board.Columns];
         }
 
-        public static string Rows
+        public static byte Rows
         {
             get
             {
@@ -33,16 +33,17 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
             set
             {
+                string input;
                 do
                 {
-                    Console.WriteLine(string.Format("Please insert the size of the rows. Should be atleast {0} and no more than {1}"), mk_MinSize, mk_MaxSize);
-                    value = Console.ReadLine();
-                } while (!(checkInputInteger(value) && checkBoardSizeLimits(value)));
+                    Console.WriteLine(string.Format("Please insert the size of the rows. Should be atleast {0} and no more than {1}", mk_MinSize, mk_MaxSize));
+                    input = Console.ReadLine();
+                } while (!(Byte.TryParse(input, out value) || checkBoardSizeLimits(value)));
                 m_Rows = value;
             }
         }
 
-        public static string Columns
+        public static byte Columns
         {
             get
             {
@@ -51,31 +52,33 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
             set
             {
+                string input;
                 do
                 {
-                    Console.WriteLine(string.Format("Please insert the size of the coulmns. should be atleast {0} and no more than {1}"), mk_MinSize, mk_MaxSize);
-                    value = Console.ReadLine();
-                } while (!(checkInputInteger(value) && checkBoardSizeLimits(value)));
+                    Console.WriteLine(string.Format("Please insert the size of the coulmns. should be atleast {0} and no more than {1}", mk_MinSize, mk_MaxSize));
+                    input = Console.ReadLine();
+                } while (!(Byte.TryParse(input, out value) || checkBoardSizeLimits(value)));
                 m_Columns = value;
             }
         }
 
-        private static bool checkBoardSizeLimits(string value)
+        private static bool checkBoardSizeLimits(byte value)
         {
             bool isSizeLimitOk = true;
-            if(int.Parse(value) > 7 || int.Parse(value) < 4)
+            if(value > 7 || value < 4)
             {
                 isSizeLimitOk = false;
             }
 
+
             return isSizeLimitOk;
         }
 
-        private static bool checkInputInteger(string i_UserInput)
+        /*private static bool checkInputInteger(string i_UserInput)
         {
             string regexPatternForNumbersInputCheck = @"^\d+$";
 
             return Regex.IsMatch(i_UserInput, regexPatternForNumbersInputCheck);
-        }
+        }*/
     }
 }
