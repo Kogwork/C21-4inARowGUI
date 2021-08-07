@@ -10,7 +10,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
     {
         private const string mk_PositiveAnswer = "y";
         private const string mk_NegativeAnswer = "n";
-
+        private int m_RoundCounter;
         private Board m_Board;
         private bool m_IsAgaintAi;
         private bool m_IsAnotherRound;
@@ -22,6 +22,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             IsAgainstAi = checkIfPlayAgainstAi();
             IsAnotherRound = checkIfPlayerWantsAnotherRound();
             IsGameOn = true;
+            RoundCounter = 0;
         }
 
         private bool checkIfPlayerWantsAnotherRound()
@@ -42,6 +43,18 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             return isAnotherRound;
         }
 
+        public int RoundCounter
+        {
+            get
+            {
+                return m_RoundCounter;
+            }
+
+            set
+            {
+                m_RoundCounter = value;
+            }
+        }
         public bool IsGameOn
         {
             get

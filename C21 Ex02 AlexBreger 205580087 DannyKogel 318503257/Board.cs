@@ -14,7 +14,8 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private const byte mk_MinSize = 4;
         private static byte m_Rows;
         private static byte m_Columns;
-        BoardNode[,] m_BoardMatrix;
+        private BoardNode[,] m_BoardMatrix;
+        private int[] m_ArrayToCheckUserInsertion;
         //BoardNode m_BoardNode;
         //Ex02.ConsoleUtils.Screen m_Screen = new Ex02.ConsoleUtils.Screen();
 
@@ -22,16 +23,26 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         {
             Rows = userInput();
             Columns = userInput();
-            BoardMatrix = initializeMatrix(Rows, Columns);
-            
+            BoardMatrix = initializeMatrix();
+            ArrayToCheckUserInsertion = initializeArray();
         }
 
-        private BoardNode[,] initializeMatrix(int i_Rows, int i_Columns)
+        private int[] initializeArray()
+        {
+            int[] arrayToCheckUserInsertion = new int[Columns];
+            for (int i = 0; i < arrayToCheckUserInsertion.Length; i++){
+                arrayToCheckUserInsertion[i] = Rows;
+            }
+
+            return arrayToCheckUserInsertion;
+        }
+
+        private BoardNode[,] initializeMatrix()
         {
             BoardMatrix = new BoardNode[Rows, Columns];
-            for (int row = 0; row < i_Rows; row++)
+            for (int row = 0; row < Rows; row++)
             {
-                for (int column = 0; column < i_Columns; column++)
+                for (int column = 0; column < Columns; column++)
                 {
                     BoardMatrix[row, column] = new BoardNode();
                 }
@@ -40,6 +51,23 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             return BoardMatrix;
         }
 
+        private bool checkUserInputIntoBoard(int i_UserInput)
+        {
+            return i_UserInput < Columns + 1 && ArrayToCheckUserInsertion[i_UserInput - 1] > 0;
+        }
+
+        public int[] ArrayToCheckUserInsertion
+        {
+            get
+            {
+                return m_ArrayToCheckUserInsertion;
+            }
+
+            set
+            {
+                m_ArrayToCheckUserInsertion = value;
+            }
+        }
         public static byte Rows
         {
             get
