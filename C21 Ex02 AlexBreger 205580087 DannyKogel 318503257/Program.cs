@@ -13,6 +13,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             Board board = new Board();
             BoardUi boardUi = new BoardUi(board);
             GamePlay gamePlay = new GamePlay(board);
+            gamePlay.GameOn();
             Console.ReadKey();
         }
         // Board Class - done
@@ -21,8 +22,8 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         // Intiate board size method - done
         // PVE or PVP game (if pve, user starts) - done
         // Print board method - done
-        // Insert into board method
-        // Check if column full method
+        // Insert into board method - done
+        // Check if column full method - done
         // Check if win condition is true (WIN OR TIE)
         // Initiate player's turn method?
         // If game ends, ask for another round. If another round, continue with same board size and score.

@@ -51,7 +51,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             return BoardMatrix;
         }
 
-        private bool checkUserInputIntoBoard(int i_UserInput)
+        public bool checkUserInputIntoBoard(int i_UserInput)
         {
             return i_UserInput < Columns + 1 && ArrayToCheckUserInsertion[i_UserInput - 1] > 0;
         }
