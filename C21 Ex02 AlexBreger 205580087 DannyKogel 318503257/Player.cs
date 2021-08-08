@@ -14,6 +14,9 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private string m_PlayerSymbol;
         private bool m_IsAi;
         private bool m_PlayerTurn;
+        private int m_LastRowInsertion;
+        private int m_LastColumnInsertion;
+
 
         public Player(Board board)
         {
@@ -27,7 +30,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             return Console.ReadLine();
         }
 
-        private void insertIntoBoard()
+        public void InsertIntoBoard()
         {
             Random randomInputForAi = new Random();
             int inputInInt;
@@ -45,10 +48,35 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                 inputInInt = randomInputForAi.Next(1, Board.Columns);
             }
 
+            LastColumnInsertion = inputInInt;
             Board.BoardMatrix[Board.ArrayToCheckUserInsertion[inputInInt - 1], inputInInt - 1].PlayerSymbol = PlayerSymbol;
+            LastRowInsertion = Board.ArrayToCheckUserInsertion[inputInInt - 1];
+            Board.ArrayToCheckUserInsertion[inputInInt - 1] = Board.ArrayToCheckUserInsertion[inputInInt - 1] - 1;
         }
 
-       
+        public int LastRowInsertion
+        {
+            get
+            {
+                return m_LastRowInsertion;
+            }
+            set
+            {
+                m_LastRowInsertion = value;
+            }
+        }
+
+        public int LastColumnInsertion
+        {
+            get
+            {
+                return m_LastColumnInsertion;
+            }
+            set
+            {
+                m_LastColumnInsertion = value;
+            }
+        }
 
         public bool PlayerTurn
         {

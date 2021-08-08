@@ -18,7 +18,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private Player m_Player1;
         private Player m_Player2;
         private Chips m_Chips;
-
+        private BoardUi m_BoardUi;
 
         public GamePlay(Board board)
         {
@@ -120,16 +120,118 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             {
                 makeAMove(Player1);
                 makeAMove(Player2);
+                BoardUi.PrintBoard();
+                if (checkWinCondition(Player1))
+                {
+                    Console.WriteLine(string.Format("{0} won!", Player1));
+                }
+                if (checkWinCondition(Player2))
+                {
 
-
+                }
             }
         }
 
         private void makeAMove(Player i_Player)
         {
-            if (i_Player.PlayerTurn)
+               if (i_Player.PlayerTurn)
+               {
+                    i_Player.InsertIntoBoard();
+               }
+        }
+        private bool checkWinCondition(Player player)
+        {
+            bool winCondition = true;
+            byte counterOfChips = 0;
+            for(int i = 0; i < Board.Columns; i++)
             {
-                i_Player.Board.
+                if(Board.BoardMatrix[player.LastRowInsertion,i].PlayerSymbol == player.PlayerSymbol)
+                {
+                    counterOfChips++;
+                    if (counterOfChips == 4)
+                    {
+                        return winCondition;
+                    }
+                }
+                else
+                {
+                    counterOfChips = 0;
+                }
+            }
+
+            counterOfChips = 0;
+            for (int i = 0; i < Board.Rows; i++)
+            {
+                if (Board.BoardMatrix[i, player.LastColumnInsertion].PlayerSymbol == player.PlayerSymbol)
+                {
+                    counterOfChips++;
+                    if (counterOfChips == 4)
+                    {
+                        return winCondition;
+                    }
+                }
+                else
+                {
+                    counterOfChips = 0;
+                } 
+            }
+
+            for(int i = 0; i < Board.Columns - 4; i++)
+            {
+                counterOfChips = 0;
+                int row;
+                int col;
+                
+                for (row = i, col = 0; Board.Rows < i && col < Board.Columns; row++, col++)
+                {
+                    if(Board.BoardMatrix[row,col].PlayerSymbol == player.PlayerSymbol)
+                    {
+                        counterOfChips++;
+                        if (counterOfChips == 4)
+                        {
+                            return winCondition;
+                        }
+                    }
+                    else
+                    {
+                        counterOfChips = 0;
+                    }
+                }
+            }
+
+            for (int j = 1; j < Board.Columns - 4; j++)
+            {
+                counterOfChips = 0;
+                int row;
+                int col;
+                for(row = 0, col = j; row < Board.Rows && col < Board.Columns; row++, col++)
+                {
+                    if(Board.BoardMatrix[row, col].PlayerSymbol == player.PlayerSymbol)
+                    {
+                        counterOfChips++;
+                        if (counterOfChips == 4)
+                        {
+                            return winCondition;
+                        }
+                    }
+                    else
+                    {
+                        counterOfChips = 0;
+                    }
+                }
+            }
+            return !winCondition;
+        }
+        public BoardUi BoardUi
+        {
+            get
+            {
+                return m_BoardUi;
+            }
+
+            set
+            {
+                m_BoardUi = value;
             }
         }
 

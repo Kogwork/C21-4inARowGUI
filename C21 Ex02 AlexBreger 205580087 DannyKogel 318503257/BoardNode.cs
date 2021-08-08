@@ -18,6 +18,11 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             PlayerSymbol = mk_DefaultEmptySpaceValue;
         }
 
+        public override string ToString()
+        {
+            return string.Format("|{0}", PlayerSymbol);
+        }
+
         public bool Free
         {
             get

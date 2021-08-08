@@ -68,6 +68,21 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                 m_ArrayToCheckUserInsertion = value;
             }
         }
+
+        public bool IsBoardFull()
+        {
+            bool flagToCheckZeroesInArray = true;
+            for(int i = 0; i < ArrayToCheckUserInsertion.Length; i++)
+            {
+                if(ArrayToCheckUserInsertion[i] != 0)
+                {
+                    flagToCheckZeroesInArray = false;
+                }
+            }
+
+            return flagToCheckZeroesInArray;
+        }
+
         public static byte Rows
         {
             get

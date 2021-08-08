@@ -28,7 +28,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
         }
 
-        public void printBoard()
+        public void PrintBoard()
         {
             Console.Write(string.Format(" "));
 
