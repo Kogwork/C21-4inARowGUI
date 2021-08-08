@@ -29,15 +29,23 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
         private void insertIntoBoard()
         {
-            byte inputInByte;
+            Random randomInputForAi = new Random();
+            int inputInInt;
             string userInput;
-            do
+            if (!IsAi)
             {
-                Console.WriteLine(string.Format("{0} please choose a column number to insert the token into", Name));
-                userInput = Console.ReadLine();
-            } while (!(Byte.TryParse(userInput, out inputInByte) && Board.checkUserInputIntoBoard(inputInByte)));
+                do
+                {
+                    Console.WriteLine(string.Format("{0} please choose a column number to insert the token into", Name));
+                    userInput = Console.ReadLine();
+                } while (!(int.TryParse(userInput, out inputInInt) && Board.checkUserInputIntoBoard(inputInInt)));
+            }
+            else
+            {
+                inputInInt = randomInputForAi.Next(1, Board.Columns);
+            }
 
-            Board.BoardMatrix[Board.ArrayToCheckUserInsertion[inputInByte - 1], inputInByte - 1].PlayerSymbol = PlayerSymbol;
+            Board.BoardMatrix[Board.ArrayToCheckUserInsertion[inputInInt - 1], inputInInt - 1].PlayerSymbol = PlayerSymbol;
         }
 
        

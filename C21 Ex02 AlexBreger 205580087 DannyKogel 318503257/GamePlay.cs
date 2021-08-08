@@ -103,23 +103,33 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
             else
             {
-                Random randomTurn = new Random();
+                Random randomTurnGenerator = new Random();
+                bool randomTurnIndicator;
                 IsAgainstAi = false;
                 Player1 = new Player(Board);
                 Player2 = new Player(Board);
                 Player1.PlayerSymbol = choosePlayerSymbol();
                 Player2.PlayerSymbol = choosePlayerSymbol();
-                Player1.PlayerTurn = randomTurn.NextDouble() > 0.5;
+                randomTurnIndicator = randomTurnGenerator.NextDouble() > 0.5;
+                Player1.PlayerTurn = randomTurnIndicator;
+                Player2.PlayerTurn = !randomTurnIndicator;
             }
 
 
             while (IsGameOn)
             {
-                if ()
-                {
+                makeAMove(Player1);
+                makeAMove(Player2);
 
-                }
-                
+
+            }
+        }
+
+        private void makeAMove(Player i_Player)
+        {
+            if (i_Player.PlayerTurn)
+            {
+                i_Player.Board.
             }
         }
 
