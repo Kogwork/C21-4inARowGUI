@@ -19,6 +19,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             List<string> chips = new List<string>() { "X", "O"};
             return chips;
         }
+
         public List<string> ChipsList
         {
             get
