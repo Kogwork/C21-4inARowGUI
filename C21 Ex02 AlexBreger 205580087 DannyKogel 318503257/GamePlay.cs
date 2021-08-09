@@ -73,44 +73,23 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
             return checkInput;
         }
-        private string choosePlayerSymbol()
-        {
-            string userInput;
-
-            do
-            {
-                Console.WriteLine("Please choose your symbol from the list by entering the corresponding number symbol");
-                Chips.ChipsList.ForEach(Console.Write);
-                userInput = Console.ReadLine();
-            } while (!Chips.ChipsList.Contains(userInput));
-            Chips.ChipsList.Remove(userInput);
-
-            return userInput;
-        }
 
         public void GameOn()
         {
+            Player currentPlayer;
+            Player1 = new Player(Board, !IsAgainstAi);
             IsAgainstAi = true;
-            string aIName = "CPU";
+
             if (checkIfPlayAgainstAi())
             {
-                Player2 = new Player(Board);
-                Player1 = new Player(Board);
-                Player2.IsAi = IsAgainstAi;
-                Player2.Name = aIName;
-                Player1.PlayerSymbol = choosePlayerSymbol();
-                Player2.PlayerSymbol = Chips.ChipsList.Last();
+                Player2 = new Player(Board, IsAgainstAi);
                 Player1.PlayerTurn = true;
             }
             else
             {
                 Random randomTurnGenerator = new Random();
                 bool randomTurnIndicator;
-                IsAgainstAi = false;
-                Player1 = new Player(Board);
-                Player2 = new Player(Board);
-                Player1.PlayerSymbol = choosePlayerSymbol();
-                Player2.PlayerSymbol = choosePlayerSymbol();
+                Player2 = new Player(Board, !IsAgainstAi);
                 randomTurnIndicator = randomTurnGenerator.NextDouble() > 0.5;
                 Player1.PlayerTurn = randomTurnIndicator;
                 Player2.PlayerTurn = !randomTurnIndicator;
@@ -119,21 +98,20 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
             while (IsGameOn)
             {
-                makeAMove(Player1);
-                BoardUi.PrintBoard();
-                //clear board
-                makeAMove(Player2);
-                BoardUi.PrintBoard();
-                //clear board
-                if (checkWinCondition(Player1))
+                if (Player1.PlayerTurn)
                 {
-                    if (!checkIfPlayerWantsAnotherRound())
-                    {
-                        IsGameOn = false;
-                        break;
-                    }
+                    currentPlayer = Player1;
                 }
-                if (checkWinCondition(Player2))
+                else
+                {
+                    currentPlayer = Player2;
+                }
+
+                makeAMove(currentPlayer);
+                BoardUi.PrintBoard();
+                //clear board
+
+                if (checkWinCondition(currentPlayer))
                 {
                     if (!checkIfPlayerWantsAnotherRound())
                     {
@@ -146,16 +124,56 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
         private void makeAMove(Player i_Player)
         {
-               if (i_Player.PlayerTurn)
-               {
-                    i_Player.InsertIntoBoard();
-               }
+            i_Player.InsertIntoBoard();
         }
+
         private bool checkWinCondition(Player i_Player)
         {
-            bool winCondition = true;
+            bool winCondition = false;
             byte counterOfChips = 0;
-            for(int i = 0; i < Board.Columns; i++)
+
+            /*for (int j = 0; j < Board.Columns - 3; j++)
+            {
+                for (int i = 0; i < Board.Rows; i++)
+                {
+                    if (Board.BoardMatrix[i_Player.LastRowInsertion, j].PlayerSymbol == player && Board.BoardMatrix[i_Player.LastRowInsertion, j + 1].PlayerSymbol == player && Board.BoardMatrix[i_Player.LastRowInsertion, j + 2].PlayerSymbol == player && Board.BoardMatrix[i_Player.LastRowInsertion, j + 3].PlayerSymbol == player)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            for (int i = 0; i < Board.Columns - 3; i++)
+            {
+                for (int j = 0; j < Board.Rows; j++)
+                {
+                    if (Board.BoardMatrix[i_Player.LastRowInsertion, i].PlayerSymbol == player && this.board[i + 1][j] == player && this.board[i + 2][j] == player && this.board[i + 3][j] == player)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            for (int i = 3; i < Board.Columns; i++)
+            {
+                for (int j = 0; j < Board.Rows - 3; j++)
+                {
+                    if (this.board[i][j] == player && this.board[i - 1][j + 1] == player && this.board[i - 2][j + 2] == player && this.board[i - 3][j + 3] == player)
+                        return true;
+                }
+            }
+
+            for (int i = 3; i < Board.Columns; i++)
+            {
+                for (int j = 3; j < Board.Rows; j++)
+                {
+                    if (Board.BoardMatrix[i_Player.LastRowInsertion, i].PlayerSymbol == player && this.board[i - 1][j - 1] == player && this.board[i - 2][j - 2] == player && this.board[i - 3][j - 3] == player)
+                        return true;
+                }
+            }
+            return false;
+            ===========================================================================================================================*/
+            for (int i = 0; i < Board.Columns; i++)
             {
                 if(Board.BoardMatrix[i_Player.LastRowInsertion,i].PlayerSymbol == i_Player.PlayerSymbol)
                 {
@@ -163,7 +181,8 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                     if (counterOfChips == 4)
                     {
                         Console.WriteLine(string.Format("{0} won!", i_Player.Name));
-                        return winCondition;
+                        winCondition = true;
+                        break;
                     }
                 }
                 else
@@ -173,7 +192,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
 
             counterOfChips = 0;
-            for (int i = 0; i < Board.Rows; i++)
+            for (int i = 0; !winCondition && i < Board.Rows; i++)
             {
                 if (Board.BoardMatrix[i, i_Player.LastColumnInsertion].PlayerSymbol == i_Player.PlayerSymbol)
                 {
@@ -181,7 +200,8 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                     if (counterOfChips == 4)
                     {
                         Console.WriteLine(string.Format("{0} won!", i_Player.Name));
-                        return winCondition;
+                        winCondition = true;
+                        break;
                     }
                 }
                 else
@@ -190,54 +210,50 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                 } 
             }
 
-            for(int i = 0; i < Board.Columns - 4; i++)
+            for (int i = 3; i < Board.Columns; i++)
             {
-                counterOfChips = 0;
-                int row;
-                int col;
-                
-                for (row = i, col = 0; Board.Rows < i && col < Board.Columns; row++, col++)
+                for (int j = 0; j < Board.Rows - 3; j++)
                 {
-                    if(Board.BoardMatrix[row,col].PlayerSymbol == i_Player.PlayerSymbol)
+                    if (Board.BoardMatrix[i, i_Player.LastColumnInsertion].PlayerSymbol == i_Player.PlayerSymbol)
                     {
                         counterOfChips++;
                         if (counterOfChips == 4)
                         {
                             Console.WriteLine(string.Format("{0} won!", i_Player.Name));
-                            return winCondition;
+                            winCondition = true;
+                            break;
                         }
-                    }
-                    else
-                    {
-                        counterOfChips = 0;
+                        else
+                        {
+                            counterOfChips = 0;
+                        }
                     }
                 }
             }
 
-            for (int j = 1; j < Board.Columns - 4; j++)
+            for (int i = 3; i < Board.Rows; i++)
             {
-                counterOfChips = 0;
-                int row;
-                int col;
-                for(row = 0, col = j; row < Board.Rows && col < Board.Columns; row++, col++)
+                for (int j = 3; j < Board.Columns; j++)
                 {
-                    if(Board.BoardMatrix[row, col].PlayerSymbol == i_Player.PlayerSymbol)
+                    if (Board.BoardMatrix[i, i_Player.LastColumnInsertion].PlayerSymbol == i_Player.PlayerSymbol)
                     {
                         counterOfChips++;
                         if (counterOfChips == 4)
                         {
                             Console.WriteLine(string.Format("{0} won!", i_Player.Name));
-                            return winCondition;
+                            winCondition = true;
+                            break;
                         }
-                    }
-                    else
-                    {
-                        counterOfChips = 0;
+                        else
+                        {
+                            counterOfChips = 0;
+                        }
                     }
                 }
             }
-            return !winCondition;
+            return winCondition;
         }
+
         public BoardUi BoardUi
         {
             get

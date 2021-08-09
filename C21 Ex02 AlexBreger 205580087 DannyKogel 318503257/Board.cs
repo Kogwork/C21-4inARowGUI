@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Ex02.ConsoleUtils;
 
 namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 {
@@ -17,7 +18,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private BoardNode[,] m_BoardMatrix;
         private int[] m_ArrayToCheckUserInsertion;
         //BoardNode m_BoardNode;
-        //Ex02.ConsoleUtils.Screen m_Screen = new Ex02.ConsoleUtils.Screen();
+        private Screen m_Screen;
 
         public Board()
         {
@@ -53,9 +54,68 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
         public bool checkUserInputIntoBoard(int i_UserInput)
         {
-            return i_UserInput < Columns + 1 && ArrayToCheckUserInsertion[i_UserInput - 1] > 0;
+            return i_UserInput < Columns + 1 && ArrayToCheckUserInsertion[i_UserInput - 1] > 0 && i_UserInput > 0;
         }
 
+        public bool IsBoardFull()
+        {
+            bool flagToCheckZeroesInArray = true;
+            for (int i = 0; i < ArrayToCheckUserInsertion.Length; i++)
+            {
+                if (ArrayToCheckUserInsertion[i] != 0)
+                {
+                    flagToCheckZeroesInArray = false;
+                    break;
+                }
+            }
+
+            return flagToCheckZeroesInArray;
+        }
+
+        private static bool checkBoardSizeLimits(byte value)
+        {
+            bool isSizeLimitOk = true;
+            if (value > mk_MaxSize || value < mk_MinSize)
+            {
+                isSizeLimitOk = false;
+            }
+
+            return isSizeLimitOk;
+        }
+
+        private byte userInput()
+        {
+            string input;
+            byte inputInByte;
+
+            do
+            {
+                if (Rows <= mk_MaxSize && Rows >= mk_MinSize)
+                {
+                    Console.WriteLine(string.Format("Input your choice for width size, should be atleast {0} and no more than {1}:", mk_MinSize, mk_MaxSize));
+                }
+                else
+                {
+                    Console.WriteLine(string.Format("Input your choice for height size, should be atleast {0} and no more than {1}:", mk_MinSize, mk_MaxSize));
+                }
+                input = Console.ReadLine();
+            } while (!(Byte.TryParse(input, out inputInByte) && checkBoardSizeLimits(inputInByte)));
+
+            return inputInByte;
+        }
+
+        public Screen Screen
+        {
+            get
+            {
+                return m_Screen;
+            }
+
+            set
+            {
+                m_Screen = value;
+            }
+        }
         public int[] ArrayToCheckUserInsertion
         {
             get
@@ -69,19 +129,6 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
         }
 
-        public bool IsBoardFull()
-        {
-            bool flagToCheckZeroesInArray = true;
-            for(int i = 0; i < ArrayToCheckUserInsertion.Length; i++)
-            {
-                if(ArrayToCheckUserInsertion[i] != 0)
-                {
-                    flagToCheckZeroesInArray = false;
-                }
-            }
-
-            return flagToCheckZeroesInArray;
-        }
 
         public static byte Rows
         {
@@ -121,37 +168,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
         }
 
-        private static bool checkBoardSizeLimits(byte value)
-        {
-            bool isSizeLimitOk = true;
-            if(value > mk_MaxSize || value < mk_MinSize)
-            {
-                isSizeLimitOk = false;
-            }
-
-            return isSizeLimitOk;
-        }
-
-        private byte userInput()
-        {
-            string input;
-            byte inputInByte;
-
-            do
-            {
-                if (Rows <= mk_MaxSize && Rows >= mk_MinSize)
-                {
-                    Console.WriteLine(string.Format("Input your choice for column size, should be atleast {0} and no more than {1}:", mk_MinSize, mk_MaxSize));
-                }
-                else
-                {
-                    Console.WriteLine(string.Format("Input your choice for row size, should be atleast {0} and no more than {1}:", mk_MinSize, mk_MaxSize));
-                }
-                input = Console.ReadLine();
-            } while (!(Byte.TryParse(input, out inputInByte) && checkBoardSizeLimits(inputInByte)));
-
-            return inputInByte;
-        }
+        
 
         /*public BoardNode BoardNode
         {

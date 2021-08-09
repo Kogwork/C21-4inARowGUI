@@ -16,18 +16,29 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private bool m_PlayerTurn;
         private int m_LastRowInsertion;
         private int m_LastColumnInsertion;
+        private Chips m_Chips;
 
 
-        public Player(Board board)
+        public Player(Board i_Board, bool i_IsAi)
         {
-            Name = initPlayerName();
-            Board = board;
+            initPlayerName();
+            Board = i_Board;
+            IsAi = i_IsAi;
+            choosePlayerSymbol();
+            PlayerTurn = false;
         }
 
-        private string initPlayerName()
+        private void initPlayerName()
         {
-            Console.WriteLine("Please enter your name");
-            return Console.ReadLine();
+            if (!IsAi)
+            {
+                Console.WriteLine("Please enter your name");
+                Name = Console.ReadLine();
+            }
+            else
+            {
+                Name = "CPU";
+            }
         }
 
         public void InsertIntoBoard()
@@ -54,6 +65,41 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             Board.ArrayToCheckUserInsertion[inputInInt - 1] = Board.ArrayToCheckUserInsertion[inputInInt - 1] - 1;
         }
 
+        private void choosePlayerSymbol()
+        {
+            string userInput;
+
+            if (!IsAi)
+            {
+                do
+                {
+                    Console.WriteLine("Please choose your symbol from the list by entering the corresponding symbol");
+                    Chips.ChipsList.ForEach(Console.Write);
+                    Console.WriteLine();
+                    userInput = Console.ReadLine();
+                } while (!Chips.ChipsList.Contains(userInput)) ;
+                Chips.ChipsList.Remove(userInput);
+                PlayerSymbol = userInput;
+            }
+            else
+            {
+                PlayerSymbol = Chips.ChipsList.Last();
+            }
+            
+
+        }
+
+        public Chips Chips
+        {
+            get
+            {
+                return m_Chips;
+            }
+            set
+            {
+                m_Chips = value;
+            }
+        }
         public int LastRowInsertion
         {
             get
