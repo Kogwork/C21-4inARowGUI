@@ -65,6 +65,11 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             Board.ArrayToCheckUserInsertion[inputInInt - 1] = Board.ArrayToCheckUserInsertion[inputInInt - 1] - 1;
         }
 
+        public void changeTurnState()
+        {
+            PlayerTurn = !PlayerTurn;
+        }
+
         private void choosePlayerSymbol()
         {
             string userInput;

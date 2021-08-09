@@ -67,7 +67,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private bool checkUserInputForYesNo(string i_UserInput)
         {
             bool checkInput = true;
-            if(!(i_UserInput.ToLower().Equals(mk_PositiveAnswer) || i_UserInput.ToLower().Equals(mk_NegativeAnswer)))
+            if (!(i_UserInput.ToLower().Equals(mk_PositiveAnswer) || i_UserInput.ToLower().Equals(mk_NegativeAnswer)))
             {
                 checkInput = false;
             }
@@ -95,31 +95,61 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                 Player2.PlayerTurn = !randomTurnIndicator;
             }
 
-
             while (IsGameOn)
             {
-                if (Player1.PlayerTurn)
+                while (Board.IsBoardFull())
                 {
-                    currentPlayer = Player1;
-                }
-                else
-                {
-                    currentPlayer = Player2;
-                }
+                    BoardUi.PrintBoard();
 
-                makeAMove(currentPlayer);
-                BoardUi.PrintBoard();
-                //clear board
-
-                if (checkWinCondition(currentPlayer))
-                {
-                    if (!checkIfPlayerWantsAnotherRound())
+                    if (Player1.PlayerTurn)
                     {
-                        IsGameOn = false;
-                        break;
+                        currentPlayer = Player1;
+                    }
+                    else
+                    {
+                        currentPlayer = Player2;
+                    }
+
+                    makeAMove(currentPlayer);
+                    Player1.changeTurnState();
+                    Player2.changeTurnState();
+                    BoardUi.Clear();
+                    BoardUi.PrintBoard();
+
+                    if (checkWinCondition(currentPlayer))
+                    {
+                        currentPlayer.Score += 1;
+                        printScore();
+                    }
+                    
+                    else
+                    {
+                        if (Board.IsBoardFull())
+                        {
+                            printTie();
+                        }
                     }
                 }
             }
+            
+            if (checkIfPlayerWantsAnotherRound())
+            {
+                Board.InitializeMatrix();
+            }
+            else
+            {
+                IsGameOn = false;
+            }
+        }
+
+        private void printTie()
+        {
+            Console.WriteLine(string.Format("It's a Tie! Score {0}: {1} | Score {2}: {3}", Player1.Name, Player1.Score, Player2.Name, Player2.Score));
+        }
+
+        private void printScore()
+        {
+            Console.WriteLine(string.Format("Score {0}: {1} | Score {2}: {3}", Player1.Name, Player1.Score, Player2.Name, Player2.Score));
         }
 
         private void makeAMove(Player i_Player)
@@ -210,47 +240,30 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                 } 
             }
 
-            for (int i = 3; i < Board.Columns; i++)
+            for (int i = -3; !winCondition && i < 4; i++)
             {
-                for (int j = 0; j < Board.Rows - 3; j++)
+                for (int j = -3; j < 4; j++)
                 {
-                    if (Board.BoardMatrix[i, i_Player.LastColumnInsertion].PlayerSymbol == i_Player.PlayerSymbol)
+                    if(i_Player.LastColumnInsertion + j < Board.Columns && i_Player.LastColumnInsertion + j > 0 && i_Player.LastRowInsertion + i < Board.Rows && i_Player.LastRowInsertion + i > 0)
                     {
-                        counterOfChips++;
-                        if (counterOfChips == 4)
+                        if(Board.BoardMatrix[i_Player.LastRowInsertion + i, i_Player.LastColumnInsertion + j].PlayerSymbol == i_Player.PlayerSymbol)
                         {
-                            Console.WriteLine(string.Format("{0} won!", i_Player.Name));
-                            winCondition = true;
-                            break;
-                        }
-                        else
-                        {
-                            counterOfChips = 0;
+                            counterOfChips++;
+                            if (counterOfChips == 4)
+                            {
+                                Console.WriteLine(string.Format("{0} won!", i_Player.Name));
+                                winCondition = true;
+                                break;
+                            }
+                            else
+                            {
+                                counterOfChips = 0;
+                            }
                         }
                     }
                 }
             }
 
-            for (int i = 3; i < Board.Rows; i++)
-            {
-                for (int j = 3; j < Board.Columns; j++)
-                {
-                    if (Board.BoardMatrix[i, i_Player.LastColumnInsertion].PlayerSymbol == i_Player.PlayerSymbol)
-                    {
-                        counterOfChips++;
-                        if (counterOfChips == 4)
-                        {
-                            Console.WriteLine(string.Format("{0} won!", i_Player.Name));
-                            winCondition = true;
-                            break;
-                        }
-                        else
-                        {
-                            counterOfChips = 0;
-                        }
-                    }
-                }
-            }
             return winCondition;
         }
 

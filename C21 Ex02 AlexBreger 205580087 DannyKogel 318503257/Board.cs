@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Ex02.ConsoleUtils;
 
 namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 {
@@ -18,13 +17,13 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private BoardNode[,] m_BoardMatrix;
         private int[] m_ArrayToCheckUserInsertion;
         //BoardNode m_BoardNode;
-        private Screen m_Screen;
+        
 
         public Board()
         {
             Rows = userInput();
             Columns = userInput();
-            BoardMatrix = initializeMatrix();
+            BoardMatrix = InitializeMatrix();
             ArrayToCheckUserInsertion = initializeArray();
         }
 
@@ -38,7 +37,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             return arrayToCheckUserInsertion;
         }
 
-        private BoardNode[,] initializeMatrix()
+        public BoardNode[,] InitializeMatrix()
         {
             BoardMatrix = new BoardNode[Rows, Columns];
             for (int row = 0; row < Rows; row++)
