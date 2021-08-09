@@ -12,7 +12,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         {
             Board board = new Board();
             BoardUi boardUi = new BoardUi(board);
-            GamePlay gamePlay = new GamePlay(board);
+            GamePlay gamePlay = new GamePlay(board, boardUi);
             gamePlay.GameOn();
             Console.ReadKey();
         }

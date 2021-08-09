@@ -11,13 +11,13 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         List<string> m_Chips;
         public Chips()
         {
-            ChipsList = listOfChips();
+            listOfChips();
         }
 
-        private List<string> listOfChips()
+        private void listOfChips()
         {
             List<string> chips = new List<string>() { "X", "O"};
-            return chips;
+            ChipsList = chips;
         }
 
         public List<string> ChipsList

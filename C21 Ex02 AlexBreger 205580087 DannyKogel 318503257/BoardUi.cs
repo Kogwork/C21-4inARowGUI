@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ex02.ConsoleUtils;
 
 
 namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
@@ -11,7 +10,6 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
     class BoardUi
     {
         private Board m_Board;
-        private Screen m_Screen;
 
         public BoardUi(Board board)
         {
@@ -31,10 +29,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
         }
 
-        public void Screen()
-        {
-            m_Screen;
-        }
+        
         public void PrintBoard()
         {
             Console.Write(string.Format(" "));

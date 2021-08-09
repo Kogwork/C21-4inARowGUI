@@ -31,7 +31,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         {
             int[] arrayToCheckUserInsertion = new int[Columns];
             for (int i = 0; i < arrayToCheckUserInsertion.Length; i++){
-                arrayToCheckUserInsertion[i] = Rows;
+                arrayToCheckUserInsertion[i] = Rows - 1;
             }
 
             return arrayToCheckUserInsertion;
@@ -53,7 +53,8 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
         public bool checkUserInputIntoBoard(int i_UserInput)
         {
-            return i_UserInput < Columns + 1 && ArrayToCheckUserInsertion[i_UserInput - 1] > 0 && i_UserInput > 0;
+
+            return i_UserInput > 0 && i_UserInput < Columns + 1 && ArrayToCheckUserInsertion[i_UserInput - 1] > -1;
         }
 
         public bool IsBoardFull()
@@ -103,18 +104,6 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             return inputInByte;
         }
 
-        public Screen Screen
-        {
-            get
-            {
-                return m_Screen;
-            }
-
-            set
-            {
-                m_Screen = value;
-            }
-        }
         public int[] ArrayToCheckUserInsertion
         {
             get

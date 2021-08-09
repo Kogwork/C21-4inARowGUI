@@ -20,12 +20,13 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private Chips m_Chips;
         private BoardUi m_BoardUi;
 
-        public GamePlay(Board board)
+        public GamePlay(Board i_Board, BoardUi i_BoardUi)
         {
-            Board = board;
+            Board = i_Board;
             IsGameOn = true;
             RoundCounter = 0;
             Chips = new Chips();
+            BoardUi = i_BoardUi;
         }
 
         private bool checkIfPlayerWantsAnotherRound()
@@ -76,20 +77,21 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
         public void GameOn()
         {
-            Player currentPlayer;
-            Player1 = new Player(Board, !IsAgainstAi);
+            Player currentPlayer = null;
             IsAgainstAi = true;
+            Player1 = new Player(Board, !IsAgainstAi, Chips);
+
 
             if (checkIfPlayAgainstAi())
             {
-                Player2 = new Player(Board, IsAgainstAi);
+                Player2 = new Player(Board, IsAgainstAi, Chips);
                 Player1.PlayerTurn = true;
             }
             else
             {
                 Random randomTurnGenerator = new Random();
                 bool randomTurnIndicator;
-                Player2 = new Player(Board, !IsAgainstAi);
+                Player2 = new Player(Board, !IsAgainstAi, Chips);
                 randomTurnIndicator = randomTurnGenerator.NextDouble() > 0.5;
                 Player1.PlayerTurn = randomTurnIndicator;
                 Player2.PlayerTurn = !randomTurnIndicator;
@@ -97,7 +99,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
             while (IsGameOn)
             {
-                while (Board.IsBoardFull())
+                while (!Board.IsBoardFull())
                 {
                     BoardUi.PrintBoard();
 
@@ -111,10 +113,15 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                     }
 
                     makeAMove(currentPlayer);
+                    
+                    if (currentPlayer.IsGameTerminatedByPlayer)
+                    {
+                        break;
+                    }
+
                     Player1.changeTurnState();
                     Player2.changeTurnState();
-                    BoardUi.Clear();
-                    BoardUi.PrintBoard();
+                    Ex02.ConsoleUtils.Screen.Clear();
 
                     if (checkWinCondition(currentPlayer))
                     {
@@ -130,16 +137,29 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                         }
                     }
                 }
-            }
-            
-            if (checkIfPlayerWantsAnotherRound())
-            {
-                Board.InitializeMatrix();
-            }
-            else
-            {
-                IsGameOn = false;
-            }
+
+                if (currentPlayer.IsGameTerminatedByPlayer)
+                {
+                    if(currentPlayer == Player1)
+                    {
+                        Player2.Score++;
+                    }
+                    else
+                    {
+                        Player1.Score++;
+                    }
+                    currentPlayer.IsGameTerminatedByPlayer = false;
+                }
+
+                if (checkIfPlayerWantsAnotherRound())
+                {
+                    Board.InitializeMatrix();
+                }
+                else
+                {
+                    IsGameOn = false;
+                }
+            } 
         }
 
         private void printTie()
@@ -162,47 +182,6 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             bool winCondition = false;
             byte counterOfChips = 0;
 
-            /*for (int j = 0; j < Board.Columns - 3; j++)
-            {
-                for (int i = 0; i < Board.Rows; i++)
-                {
-                    if (Board.BoardMatrix[i_Player.LastRowInsertion, j].PlayerSymbol == player && Board.BoardMatrix[i_Player.LastRowInsertion, j + 1].PlayerSymbol == player && Board.BoardMatrix[i_Player.LastRowInsertion, j + 2].PlayerSymbol == player && Board.BoardMatrix[i_Player.LastRowInsertion, j + 3].PlayerSymbol == player)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            for (int i = 0; i < Board.Columns - 3; i++)
-            {
-                for (int j = 0; j < Board.Rows; j++)
-                {
-                    if (Board.BoardMatrix[i_Player.LastRowInsertion, i].PlayerSymbol == player && this.board[i + 1][j] == player && this.board[i + 2][j] == player && this.board[i + 3][j] == player)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            for (int i = 3; i < Board.Columns; i++)
-            {
-                for (int j = 0; j < Board.Rows - 3; j++)
-                {
-                    if (this.board[i][j] == player && this.board[i - 1][j + 1] == player && this.board[i - 2][j + 2] == player && this.board[i - 3][j + 3] == player)
-                        return true;
-                }
-            }
-
-            for (int i = 3; i < Board.Columns; i++)
-            {
-                for (int j = 3; j < Board.Rows; j++)
-                {
-                    if (Board.BoardMatrix[i_Player.LastRowInsertion, i].PlayerSymbol == player && this.board[i - 1][j - 1] == player && this.board[i - 2][j - 2] == player && this.board[i - 3][j - 3] == player)
-                        return true;
-                }
-            }
-            return false;
-            ===========================================================================================================================*/
             for (int i = 0; i < Board.Columns; i++)
             {
                 if(Board.BoardMatrix[i_Player.LastRowInsertion,i].PlayerSymbol == i_Player.PlayerSymbol)

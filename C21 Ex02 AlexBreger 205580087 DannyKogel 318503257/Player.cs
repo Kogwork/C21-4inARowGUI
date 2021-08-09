@@ -17,15 +17,17 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private int m_LastRowInsertion;
         private int m_LastColumnInsertion;
         private Chips m_Chips;
+        private bool m_IsGameTerminatedByPlayer;
 
-
-        public Player(Board i_Board, bool i_IsAi)
+        public Player(Board i_Board, bool i_IsAi, Chips i_Chips)
         {
             initPlayerName();
             Board = i_Board;
             IsAi = i_IsAi;
-            choosePlayerSymbol();
             PlayerTurn = false;
+            IsGameTerminatedByPlayer = false;
+            Chips = i_Chips;
+            choosePlayerSymbol();
         }
 
         private void initPlayerName()
@@ -44,25 +46,31 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         public void InsertIntoBoard()
         {
             Random randomInputForAi = new Random();
-            int inputInInt;
+            int inputInInt = -1;
             string userInput;
             if (!IsAi)
             {
                 do
                 {
-                    Console.WriteLine(string.Format("{0} please choose a column number to insert the token into", Name));
+                    Console.WriteLine(string.Format("{0} please choose a column number to insert the token into or press 'q' to quit", Name));
                     userInput = Console.ReadLine();
+                    if(userInput.ToLower() == "q")
+                    {
+                        IsGameTerminatedByPlayer = true;
+                        return;
+                    }
                 } while (!(int.TryParse(userInput, out inputInInt) && Board.checkUserInputIntoBoard(inputInInt)));
             }
             else
             {
                 inputInInt = randomInputForAi.Next(1, Board.Columns);
             }
+            inputInInt--;
 
             LastColumnInsertion = inputInInt;
-            Board.BoardMatrix[Board.ArrayToCheckUserInsertion[inputInInt - 1], inputInInt - 1].PlayerSymbol = PlayerSymbol;
-            LastRowInsertion = Board.ArrayToCheckUserInsertion[inputInInt - 1];
-            Board.ArrayToCheckUserInsertion[inputInInt - 1] = Board.ArrayToCheckUserInsertion[inputInInt - 1] - 1;
+            LastRowInsertion = Board.ArrayToCheckUserInsertion[inputInInt];
+            Board.BoardMatrix[Board.ArrayToCheckUserInsertion[inputInInt], inputInInt].PlayerSymbol = PlayerSymbol;
+            Board.ArrayToCheckUserInsertion[inputInInt] = Board.ArrayToCheckUserInsertion[inputInInt] - 1;
         }
 
         public void changeTurnState()
@@ -82,7 +90,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                     Chips.ChipsList.ForEach(Console.Write);
                     Console.WriteLine();
                     userInput = Console.ReadLine();
-                } while (!Chips.ChipsList.Contains(userInput)) ;
+                } while (!Chips.ChipsList.Contains(userInput));
                 Chips.ChipsList.Remove(userInput);
                 PlayerSymbol = userInput;
             }
@@ -94,6 +102,17 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
         }
 
+        public bool IsGameTerminatedByPlayer
+        {
+            get
+            {
+                return m_IsGameTerminatedByPlayer;
+            }
+            set
+            {
+                m_IsGameTerminatedByPlayer = value;
+            }
+        }
         public Chips Chips
         {
             get
