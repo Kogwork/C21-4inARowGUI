@@ -8,14 +8,14 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 {
     class BoardNode
     {
-        private const string mk_DefaultEmptySpaceValue = " ";
+        private string m_DefaultEmptySpaceValue = " ";
         private bool m_Free;
         private string m_PlayerSymbol;
         
         public BoardNode()
         {
             Free = true;
-            PlayerSymbol = mk_DefaultEmptySpaceValue;
+            PlayerSymbol = m_DefaultEmptySpaceValue;
         }
 
         public override string ToString()
