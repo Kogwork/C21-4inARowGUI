@@ -20,7 +20,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
         public override string ToString()
         {
-            return string.Format("|{0}", PlayerSymbol);
+            return string.Format("| {0} ", PlayerSymbol);
         }
 
         public bool Free
@@ -48,6 +48,5 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                 m_PlayerSymbol = value;
             }
         }
-
     }
 }

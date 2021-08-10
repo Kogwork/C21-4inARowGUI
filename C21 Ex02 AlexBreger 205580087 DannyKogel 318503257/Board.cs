@@ -23,21 +23,19 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         {
             Rows = userInput();
             Columns = userInput();
-            BoardMatrix = InitializeMatrix();
-            ArrayToCheckUserInsertion = initializeArray();
+            InitializeMatrix();
+            InitializeArray();
         }
 
-        private int[] initializeArray()
+        public void InitializeArray()
         {
-            int[] arrayToCheckUserInsertion = new int[Columns];
-            for (int i = 0; i < arrayToCheckUserInsertion.Length; i++){
-                arrayToCheckUserInsertion[i] = Rows - 1;
+            ArrayToCheckUserInsertion = new int[Columns];
+            for (int i = 0; i < ArrayToCheckUserInsertion.Length; i++){
+                ArrayToCheckUserInsertion[i] = Rows - 1;
             }
-
-            return arrayToCheckUserInsertion;
         }
 
-        public BoardNode[,] InitializeMatrix()
+        public void InitializeMatrix()
         {
             BoardMatrix = new BoardNode[Rows, Columns];
             for (int row = 0; row < Rows; row++)
@@ -47,14 +45,12 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                     BoardMatrix[row, column] = new BoardNode();
                 }
             }
-
-            return BoardMatrix;
         }
 
         public bool checkUserInputIntoBoard(int i_UserInput)
         {
 
-            return i_UserInput > 0 && i_UserInput < Columns + 1 && ArrayToCheckUserInsertion[i_UserInput - 1] > -1;
+            return i_UserInput >= 0 && i_UserInput < Columns && ArrayToCheckUserInsertion[i_UserInput] > -1;
         }
 
         public bool IsBoardFull()
@@ -62,7 +58,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             bool flagToCheckZeroesInArray = true;
             for (int i = 0; i < ArrayToCheckUserInsertion.Length; i++)
             {
-                if (ArrayToCheckUserInsertion[i] != 0)
+                if (ArrayToCheckUserInsertion[i] != -1)
                 {
                     flagToCheckZeroesInArray = false;
                     break;

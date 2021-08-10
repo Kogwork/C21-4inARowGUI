@@ -125,15 +125,19 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
                     if (checkWinCondition(currentPlayer))
                     {
+                        BoardUi.PrintBoard();
                         currentPlayer.Score += 1;
                         printScore();
+                        break;
                     }
                     
                     else
                     {
                         if (Board.IsBoardFull())
                         {
+                            BoardUi.PrintBoard();
                             printTie();
+                            break;
                         }
                     }
                 }
@@ -153,7 +157,9 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
                 if (checkIfPlayerWantsAnotherRound())
                 {
+                    Ex02.ConsoleUtils.Screen.Clear();
                     Board.InitializeMatrix();
+                    Board.InitializeArray();
                 }
                 else
                 {
@@ -184,12 +190,12 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
             for (int i = 0; i < Board.Columns; i++)
             {
-                if(Board.BoardMatrix[i_Player.LastRowInsertion,i].PlayerSymbol == i_Player.PlayerSymbol)
+                if (Board.BoardMatrix[i_Player.LastRowInsertion, i].PlayerSymbol == i_Player.PlayerSymbol)
                 {
                     counterOfChips++;
                     if (counterOfChips == 4)
                     {
-                        Console.WriteLine(string.Format("{0} won!", i_Player.Name));
+                        Console.WriteLine(string.Format("{0} won with a row!", i_Player.Name));
                         winCondition = true;
                         break;
                     }
@@ -208,7 +214,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                     counterOfChips++;
                     if (counterOfChips == 4)
                     {
-                        Console.WriteLine(string.Format("{0} won!", i_Player.Name));
+                        Console.WriteLine(string.Format("{0} won with a column!", i_Player.Name));
                         winCondition = true;
                         break;
                     }
@@ -216,30 +222,61 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                 else
                 {
                     counterOfChips = 0;
-                } 
+                }
             }
+
+            counterOfChips = 0;
 
             for (int i = -3; !winCondition && i < 4; i++)
             {
-                for (int j = -3; j < 4; j++)
-                {
-                    if(i_Player.LastColumnInsertion + j < Board.Columns && i_Player.LastColumnInsertion + j > 0 && i_Player.LastRowInsertion + i < Board.Rows && i_Player.LastRowInsertion + i > 0)
+                    if (i_Player.LastColumnInsertion + i < Board.Columns && i_Player.LastColumnInsertion + i >= 0 && i_Player.LastRowInsertion + i < Board.Rows && i_Player.LastRowInsertion + i >= 0)
                     {
-                        if(Board.BoardMatrix[i_Player.LastRowInsertion + i, i_Player.LastColumnInsertion + j].PlayerSymbol == i_Player.PlayerSymbol)
+                        if (Board.BoardMatrix[i_Player.LastRowInsertion + i, i_Player.LastColumnInsertion + i].PlayerSymbol == i_Player.PlayerSymbol)
                         {
                             counterOfChips++;
                             if (counterOfChips == 4)
                             {
-                                Console.WriteLine(string.Format("{0} won!", i_Player.Name));
+                                Console.WriteLine(string.Format("{0} won with a diagonal 1!", i_Player.Name));
                                 winCondition = true;
                                 break;
                             }
-                            else
-                            {
-                                counterOfChips = 0;
-                            }
+                        }
+                        else
+                        {
+                            counterOfChips = 0;
                         }
                     }
+                    else
+                    {
+                        continue;
+                    }
+
+            }
+
+            counterOfChips = 0;
+            for (int i = -3; !winCondition && i < 4; i++)
+            {
+
+                if (i_Player.LastColumnInsertion + i < Board.Columns && i_Player.LastColumnInsertion + i >= 0 && i_Player.LastRowInsertion - i < Board.Rows && i_Player.LastRowInsertion - i >= 0)
+                {
+                    if (Board.BoardMatrix[i_Player.LastRowInsertion - i, i_Player.LastColumnInsertion + i].PlayerSymbol == i_Player.PlayerSymbol)
+                    {
+                        counterOfChips++;
+                        if (counterOfChips == 4)
+                        {
+                            Console.WriteLine(string.Format("{0} won with a diagonal 2!", i_Player.Name));
+                            winCondition = true;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        counterOfChips = 0;
+                    }
+                }
+                else
+                {
+                    continue;
                 }
             }
 

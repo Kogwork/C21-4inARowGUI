@@ -21,9 +21,9 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
         public Player(Board i_Board, bool i_IsAi, Chips i_Chips)
         {
+            IsAi = i_IsAi;
             initPlayerName();
             Board = i_Board;
-            IsAi = i_IsAi;
             PlayerTurn = false;
             IsGameTerminatedByPlayer = false;
             Chips = i_Chips;
@@ -48,6 +48,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             Random randomInputForAi = new Random();
             int inputInInt = -1;
             string userInput;
+
             if (!IsAi)
             {
                 do
@@ -59,11 +60,14 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                         IsGameTerminatedByPlayer = true;
                         return;
                     }
-                } while (!(int.TryParse(userInput, out inputInInt) && Board.checkUserInputIntoBoard(inputInInt)));
+                } while (!(int.TryParse(userInput, out inputInInt) && Board.checkUserInputIntoBoard(inputInInt - 1)));
             }
             else
             {
-                inputInInt = randomInputForAi.Next(1, Board.Columns);
+                do
+                {
+                    inputInInt = randomInputForAi.Next(1, Board.Columns + 1);
+                } while (!Board.checkUserInputIntoBoard(inputInInt - 1));
             }
             inputInInt--;
 

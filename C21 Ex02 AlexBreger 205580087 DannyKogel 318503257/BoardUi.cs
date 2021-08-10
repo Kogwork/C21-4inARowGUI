@@ -36,7 +36,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
             for (int column = 0; column < Board.Columns; column++)
             {
-                Console.Write(string.Format(" {0} ", column + 1));
+                Console.Write(string.Format(" {0}  ", column + 1));
             }
             Console.WriteLine();
 
@@ -44,11 +44,11 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             {
                 for(int column = 0; column < Board.Columns; column++)
                 {
-                    Console.Write(string.Format("| {0} ", Board.BoardMatrix[row,column].PlayerSymbol));
+                    Console.Write(Board.BoardMatrix[row,column].ToString());
                 }
                 
                 Console.WriteLine("|");
-                string seperator = new String('=', Board.Columns * 3 + 1);
+                string seperator = new String('=', Board.Columns * 4 + 1);
                 Console.WriteLine(seperator);
             }
         }
