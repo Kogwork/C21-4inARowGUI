@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C21 Ex02 AlexBreger 205580087 DannyKogel 318503257", "C21 Ex02 AlexBreger 205580087 DannyKogel 318503257\C21 Ex02 AlexBreger 205580087 DannyKogel 318503257.csproj", "{7801DD95-2AC0-49A2-98B5-99F3E9116F80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4GUI", "Connect4GUI\Connect4GUI.csproj", "{E191EACE-4C40-4D50-AAD5-7CF16B3CCAFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4Logic", "Connect4Logic\Connect4Logic.csproj", "{7801DD95-2AC0-49A2-98B5-99F3E9116F80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E191EACE-4C40-4D50-AAD5-7CF16B3CCAFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E191EACE-4C40-4D50-AAD5-7CF16B3CCAFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E191EACE-4C40-4D50-AAD5-7CF16B3CCAFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E191EACE-4C40-4D50-AAD5-7CF16B3CCAFE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7801DD95-2AC0-49A2-98B5-99F3E9116F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7801DD95-2AC0-49A2-98B5-99F3E9116F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7801DD95-2AC0-49A2-98B5-99F3E9116F80}.Release|Any CPU.ActiveCfg = Release|Any CPU

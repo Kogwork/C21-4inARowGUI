@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7801DD95-2AC0-49A2-98B5-99F3E9116F80}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>C21_Ex02_AlexBreger_205580087_DannyKogel_318503257</RootNamespace>
-    <AssemblyName>C21 Ex02 AlexBreger 205580087 DannyKogel 318503257</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Connect4Logic</RootNamespace>
+    <AssemblyName>Connect4Logic</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
@@ -43,6 +46,7 @@
     <Compile Include="GamePlay.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Ex02.ConsoleUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

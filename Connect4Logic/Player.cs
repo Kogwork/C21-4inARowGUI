@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
+namespace Connect4Logic
 {
-    class Player
+    public class Player
     {
-        private const string mk_StopRound = "q";
+        public static readonly string sr_DeafultComputerName = "[Computer]";
         private string m_Name;
         private int m_NumberOfWins;
         private Board m_Board;
@@ -21,16 +21,18 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private bool m_IsGameTerminatedByPlayer;
         private BoardUi m_BoardUi;
 
-        public Player(Board i_Board, bool i_IsAi, Chips i_Chips, BoardUi i_BoardUi)
+        public Player()
         {
-            BoardUi = i_BoardUi;
+        }
+
+        public Player(Board i_Board, bool i_IsAi, Chips i_Chips)
+        {
             IsAi = i_IsAi;
             initPlayerName();
             Board = i_Board;
             PlayerTurn = false;
             IsGameTerminatedByPlayer = false;
             Chips = i_Chips;
-            choosePlayerSymbol();
         }
 
         public bool IsGameTerminatedByPlayer
@@ -184,67 +186,33 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
             else
             {
-                Name = "CPU";
+                Name = sr_DeafultComputerName;
             }
         }
 
-        public void InsertIntoBoard()
+        public void InsertIntoBoard(int i_UserInput)
         {
             Random randomInputForAi = new Random();
-            int inputInInt = -1;
-            string userInput;
 
-            if (!IsAi)
-            {
+            if (IsAi) 
+            { 
                 do
                 {
-                    userInput = BoardUi.PlayerInsertIntoBoard(Name);
-                    if (userInput.ToLower() == mk_StopRound)
-                    {
-                        IsGameTerminatedByPlayer = true;
-                        return;
-                    }
-                } while (!(int.TryParse(userInput, out inputInInt) && Board.checkUserInputIntoBoard(inputInInt - 1)));
-            }
-            else
-            {
-                do
-                {
-                    inputInInt = randomInputForAi.Next(1, Board.Columns + 1);
-                } while (!Board.checkUserInputIntoBoard(inputInInt - 1));
+                    i_UserInput = randomInputForAi.Next(1, Board.Columns + 1);
+                } while (!Board.checkUserInputIntoBoard(i_UserInput - 1));
             }
 
-            inputInInt--;
+            i_UserInput--;
 
-            LastColumnInsertion = inputInInt;
-            LastRowInsertion = Board.ArrayToCheckUserInsertion[inputInInt];
-            Board.BoardMatrix[Board.ArrayToCheckUserInsertion[inputInInt], inputInInt].PlayerSymbol = PlayerSymbol;
-            Board.ArrayToCheckUserInsertion[inputInInt] = Board.ArrayToCheckUserInsertion[inputInInt] - 1;
+            LastColumnInsertion = i_UserInput;
+            LastRowInsertion = Board.ArrayToCheckUserInsertion[i_UserInput];
+            Board.BoardMatrix[Board.ArrayToCheckUserInsertion[i_UserInput], i_UserInput].PlayerSymbol = PlayerSymbol;
+            Board.ArrayToCheckUserInsertion[i_UserInput] = Board.ArrayToCheckUserInsertion[i_UserInput] - 1;
         }
 
         public void changeTurnState()
         {
             PlayerTurn = !PlayerTurn;
-        }
-
-        private void choosePlayerSymbol()
-        {
-            string userInput;
-
-            if (!IsAi)
-            {
-                do
-                {
-                    userInput = BoardUi.PlayerChoosePlayerSymbol(Chips.ChipsList);
-                } while (!Chips.ChipsList.Contains(userInput));
-
-                Chips.ChipsList.Remove(userInput);
-                PlayerSymbol = userInput;
-            }
-            else
-            {
-                PlayerSymbol = Chips.ChipsList.Last();
-            }
         }
     }
 }

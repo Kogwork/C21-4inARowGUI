@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
+namespace Connect4Logic
 {
-    class GamePlay
+    public class GamePlay
     {
         private const string mk_PositiveAnswer = "y";
         private const string mk_NegativeAnswer = "n";
@@ -20,13 +20,19 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private Chips m_Chips;
         private BoardUi m_BoardUi;
 
-        public GamePlay(Board i_Board, BoardUi i_BoardUi)
+        public GamePlay(Board i_Board)
         {
             Board = i_Board;
             IsGameOn = true;
             RoundCounter = 0;
             Chips = new Chips();
-            BoardUi = i_BoardUi;
+            Player1 = new Player();
+            Player1.PlayerSymbol = Chips.ChipsList[0];
+            Player1.Board = Board;
+            Player1.changeTurnState();
+            Player2 = new Player();
+            Player2.PlayerSymbol = Chips.ChipsList[1];
+            Player2.Board = Board;
         }
 
         public BoardUi BoardUi
@@ -53,6 +59,11 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             {
                 m_Chips = value;
             }
+        }
+
+        public void makeAMove(object currentPlayer, int numberOfRowsPossible)
+        {
+            throw new NotImplementedException();
         }
 
         public Player Player1
@@ -159,19 +170,15 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         {
             Player currentPlayer = null;
             IsAgainstAi = true;
-            Player1 = new Player(Board, !IsAgainstAi, Chips, BoardUi);
-
 
             if (checkIfPlayAgainstAi())
             {
-                Player2 = new Player(Board, IsAgainstAi, Chips, BoardUi);
                 Player1.PlayerTurn = true;
             }
             else
             {
                 Random randomTurnGenerator = new Random();
                 bool randomTurnIndicator;
-                Player2 = new Player(Board, !IsAgainstAi, Chips, BoardUi);
                 randomTurnIndicator = randomTurnGenerator.NextDouble() > 0.5;
                 Player1.PlayerTurn = randomTurnIndicator;
                 Player2.PlayerTurn = !randomTurnIndicator;
@@ -192,8 +199,6 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                         currentPlayer = Player2;
                     }
 
-                    makeAMove(currentPlayer);
-                    
                     if (currentPlayer.IsGameTerminatedByPlayer)
                     {
                         break;
@@ -201,13 +206,11 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
                     Player1.changeTurnState();
                     Player2.changeTurnState();
-                    Ex02.ConsoleUtils.Screen.Clear();
 
                     if (checkWinCondition(currentPlayer))
                     {
                         BoardUi.PrintBoard();
                         currentPlayer.Score += 1;
-                        printScore();
                         break;
                     }
                     
@@ -216,7 +219,6 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                         if (Board.IsBoardFull())
                         {
                             BoardUi.PrintBoard();
-                            printTie();
                             break;
                         }
                     }
@@ -237,9 +239,6 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
                 if (checkIfPlayerWantsAnotherRound())
                 {
-                    Ex02.ConsoleUtils.Screen.Clear();
-                    Board.InitializeMatrix();
-                    Board.InitializeArray();
                 }
                 else
                 {
@@ -248,22 +247,12 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             } 
         }
 
-        private void printTie()
+        public void makeAMove(Player i_Player,int i_Input)
         {
-            BoardUi.GamePlayPrintTie(Player1, Player2);
+            i_Player.InsertIntoBoard(i_Input);
         }
 
-        private void printScore()
-        {
-            BoardUi.GamePlayPrintScore(Player1, Player2);
-        }
-
-        private void makeAMove(Player i_Player)
-        {
-            i_Player.InsertIntoBoard();
-        }
-
-        private bool checkWinCondition(Player i_Player)
+        public bool checkWinCondition(Player i_Player)
         {
             bool winCondition = false;
             byte counterOfChips = 0;

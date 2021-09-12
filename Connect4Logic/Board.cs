@@ -5,25 +5,20 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
+namespace Connect4Logic
 {
-    class Board
+    public class Board
     {
-        private const byte mk_MaxSize = 8;
-        private const byte mk_MinSize = 4;
-        private static byte m_Rows;
-        private static byte m_Columns;
+        public static readonly int sr_MaxSize = 8;
+        public static readonly int sr_MinSize = 4;
+        private static int m_Rows;
+        private static int m_Columns;
         private BoardNode[,] m_BoardMatrix;
         private int[] m_ArrayToCheckUserInsertion;
         private BoardUi m_BoardUi;
 
         public Board()
         {
-            BoardUi = new BoardUi(this);
-            Rows = userInput();
-            Columns = userInput();
-            InitializeMatrix();
-            InitializeArray();
         }
 
         public BoardUi BoardUi
@@ -38,6 +33,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
                 m_BoardUi = value;
             }
         }
+
         public int[] ArrayToCheckUserInsertion
         {
             get
@@ -51,7 +47,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
         }
 
-        public static byte Rows
+        public int Rows
         {
             get
             {
@@ -64,7 +60,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
             }
         }
 
-        public static byte Columns
+        public int Columns
         {
             get
             {
@@ -113,7 +109,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
         public bool checkUserInputIntoBoard(int i_UserInput)
         {
-            return i_UserInput >= 0 && i_UserInput < Columns && ArrayToCheckUserInsertion[i_UserInput] > -1;
+            return ArrayToCheckUserInsertion[i_UserInput] > -1;
         }
 
         public bool IsBoardFull()
@@ -134,7 +130,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         private static bool checkBoardSizeLimits(byte value)
         {
             bool isSizeLimitOk = true;
-            if (value > mk_MaxSize || value < mk_MinSize)
+            if (value > sr_MaxSize || value < sr_MinSize)
             {
                 isSizeLimitOk = false;
             }
@@ -149,7 +145,7 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
 
             do
             {
-                input = BoardUi.BoardUserInput(mk_MaxSize, mk_MinSize);
+                input = BoardUi.BoardUserInput(sr_MaxSize, sr_MinSize);
             } while (!(byte.TryParse(input, out inputInByte) && checkBoardSizeLimits(inputInByte)));
 
             return inputInByte;

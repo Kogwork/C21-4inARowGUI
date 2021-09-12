@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
+namespace Connect4Logic
 {
-    class Chips
+    public class Chips
     {
         private List<string> m_Chips;
         

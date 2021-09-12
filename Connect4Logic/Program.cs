@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
+namespace Connect4Logic
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void notMian()
         {
             Board board = new Board();
             BoardUi boardUi = new BoardUi(board);
-            GamePlay gamePlay = new GamePlay(board, boardUi);
+            GamePlay gamePlay = new GamePlay(board);
             gamePlay.GameOn();
             Console.ReadKey();
         }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
+namespace Connect4Logic
 {
-    class BoardUi
+    public class BoardUi
     {
         private const string mk_PositiveAnswer = "y";
         private const string mk_NegativeAnswer = "n";
@@ -88,12 +88,6 @@ namespace C21_Ex02_AlexBreger_205580087_DannyKogel_318503257
         public string PlayerInitPlayerName()
         {
             Console.WriteLine("Please enter your name");
-            return Console.ReadLine();
-        }
-
-        public string PlayerInsertIntoBoard(string i_Name)
-        {
-            Console.WriteLine(string.Format("{0} please choose a column number to insert the token into or press 'q' to quit", i_Name));
             return Console.ReadLine();
         }
 
