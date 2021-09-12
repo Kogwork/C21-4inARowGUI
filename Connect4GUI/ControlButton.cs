@@ -32,7 +32,7 @@ namespace Connect4GUI
             this.FlatStyle = FlatStyle.Flat;
             this.Name = string.Format("ControlButton{0}", ControlsColumn);
             this.Size = new System.Drawing.Size(sr_ControlButtonDeafultSize, sr_ControlButtonDeafultSize);
-            this.Text = string.Format("{0}\n⇩", ControlsColumn);
+            this.Text = string.Format("{0}\n▼", ControlsColumn);
             this.Click += new EventHandler(this.ControlButton_Click);
         }
 

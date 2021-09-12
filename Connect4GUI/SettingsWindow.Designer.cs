@@ -181,7 +181,6 @@ namespace Connect4GUI
             s_Board.Columns = (int)NumericUpDownCols.Value;
             s_Board.InitializeArray();
             s_Board.InitializeMatrix();
-
             S_Gameplay.Player1.Name = TextBoxPlayer1.Text;
             S_Gameplay.Player2.Name = TextBoxPlayer2.Text;
 
