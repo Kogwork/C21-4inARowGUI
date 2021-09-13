@@ -192,16 +192,6 @@ namespace Connect4Logic
 
         public void InsertIntoBoard(int i_UserInput)
         {
-            Random randomInputForAi = new Random();
-
-            if (IsAi) 
-            { 
-                do
-                {
-                    i_UserInput = randomInputForAi.Next(1, Board.Columns + 1);
-                } while (!Board.checkUserInputIntoBoard(i_UserInput - 1));
-            }
-
             i_UserInput--;
 
             LastColumnInsertion = i_UserInput;

@@ -169,6 +169,7 @@ namespace Connect4GUI
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsWindow";
             this.Text = "Game Settings";
+            S_Gameplay.Player2.IsAi = true;
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownCols)).EndInit();
             this.ResumeLayout(false);
@@ -206,7 +207,6 @@ namespace Connect4GUI
             {
                 TextBoxPlayer2.Text = Connect4Logic.Player.sr_DeafultComputerName;
                 S_Gameplay.IsAgainstAi = true;
-                S_Gameplay.Player2.IsAi = true;
             }
         }
 

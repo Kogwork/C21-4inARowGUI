@@ -59,7 +59,6 @@ namespace Connect4GUI
             this.LabelPlayer2WinCount.TabIndex = 1;
             this.LabelPlayer2WinCount.Text = "Sample";
             this.LabelPlayer2WinCount.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.LabelPlayer2WinCount.Click += new System.EventHandler(this.LabelPlayer2WinCount_Click);
             // 
             // LabelCurrentTurn
             // 
@@ -69,7 +68,6 @@ namespace Connect4GUI
             this.LabelCurrentTurn.Size = new System.Drawing.Size(42, 13);
             this.LabelCurrentTurn.TabIndex = 2;
             this.LabelCurrentTurn.Text = "Sample";
-            this.LabelCurrentTurn.Click += new System.EventHandler(this.LabelCurrentTurn_Click);
             // 
             // LabelCurrentRound
             // 

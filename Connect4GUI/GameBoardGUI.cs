@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -84,43 +85,69 @@ namespace Connect4GUI
             }
         }
 
-        public void CheckIfThereIsAWinner() 
+        public bool CheckIfThereIsAWinner() 
         {
+            bool endGame = false;
+
             if (SettingsWindow.S_Gameplay.checkWinCondition(PlayerControls.CurrentPlayer))
             {
                 PlayerControls.CurrentPlayer.Score += 1;
-                DialogResult winMsg = MessageBox.Show(string.Format("{0} Won!!\nAnother Round?", PlayerControls.CurrentPlayer.Name), "A Win!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (winMsg == DialogResult.Yes)
-                {
-                    SettingsWindow.s_Board.InitializeArray();
-                    SettingsWindow.s_Board.InitializeMatrix();
-                    SettingsWindow.S_Gameplay.RoundCounter++;
-                    GridGameBoard.Controls.Clear();
-                    UpdateBoardGui();
-                }
-                else if (winMsg == DialogResult.No)
-                {
-                    Application.Exit();
-                }
-                return;
+                endGamePromptWin();
+                endGame = true;
             }
+
+            if (SettingsWindow.S_Gameplay.Board.IsBoardFull()) 
+            {
+                endGamePromptTie();
+                endGame = true;
+            }
+
             PlayerControls.SwapTurn();
             LabelCurrentRoundUpdate();
+
+            return endGame;
+        }
+
+        private void endGamePromptWin() 
+        {
+            DialogResult winMsg = MessageBox.Show(string.Format("{0} Won!!\nAnother Round?", PlayerControls.CurrentPlayer.Name), "A Win!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (winMsg == DialogResult.Yes)
+            {
+                resetBoardAndGame();
+            }
+            else if (winMsg == DialogResult.No)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void endGamePromptTie()
+        {
+            DialogResult winMsg = MessageBox.Show("Tie!!\nAnother Round?", "A Tie!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (winMsg == DialogResult.Yes)
+            {
+                resetBoardAndGame();
+            }
+            else if (winMsg == DialogResult.No)
+            {
+                Application.Exit();
+            }
+        }
+
+
+        private void resetBoardAndGame() 
+        {
+            SettingsWindow.s_Board.InitializeArray();
+            SettingsWindow.s_Board.InitializeMatrix();
+            SettingsWindow.S_Gameplay.RoundCounter++;
+            SettingsWindow.S_Gameplay.Player1.PlayerTurn = false;
+            GridGameBoard.Controls.Clear();
+            UpdateBoardGui();
         }
 
         public void LabelCurrentRoundUpdate()
         {
             LabelCurrentTurn.Text = string.Format("Current Turn: {0}", PlayerControls.CurrentPlayer.Name);
-        }
-
-        private void LabelPlayer2WinCount_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LabelCurrentTurn_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

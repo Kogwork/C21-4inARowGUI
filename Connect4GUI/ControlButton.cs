@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Connect4GUI
 {
@@ -40,15 +41,28 @@ namespace Connect4GUI
         {
             CurrentGameBoard.UpdateBoardCells(GameBoard.Board.ArrayToCheckUserInsertion[ControlsColumn - 1], ControlsColumn - 1);
             CurrentPlayer.InsertIntoBoard(ControlsColumn);
-            CurrentGameBoard.CheckIfThereIsAWinner();
-
-            if (!GameBoard.Board.checkUserInputIntoBoard(ControlsColumn - 1)) 
+            if (CurrentGameBoard.CheckIfThereIsAWinner()) 
             {
-                this.Enabled = false;
-                this.Text = this.Text = string.Format("{0}\n✖", ControlsColumn);
-                this.BackColor = System.Drawing.Color.IndianRed;
+                return;
+            }
+
+            if (GameBoard.Player2.IsAi)
+            {
+                int computerInput;
+                Random randomInputForAi = new Random();
+                Task.Delay(400).Wait();
+
+                do
+                {
+                    computerInput = randomInputForAi.Next(1, GameBoard.Board.Columns + 1);
+                } while (!GameBoard.Board.checkUserInputIntoBoard(computerInput - 1));
+
+                CurrentGameBoard.UpdateBoardCells(GameBoard.Board.ArrayToCheckUserInsertion[computerInput - 1], computerInput - 1);
+                CurrentPlayer.InsertIntoBoard(computerInput);
+                CurrentGameBoard.CheckIfThereIsAWinner();
             }
         }
+
         public Connect4Logic.Player CurrentPlayer
         {
             get

@@ -44,8 +44,19 @@ namespace Connect4GUI
             foreach (ControlButton control in ControlList) 
             {
                 control.CurrentPlayer = CurrentPlayer;
+                DisableFullControls(control.ControlsColumn - 1);
             }
 
+        }
+
+        public void DisableFullControls(int i_Column)
+        {
+            if (!GameBoard.Board.checkUserInputIntoBoard(i_Column))
+            {
+                ControlList[i_Column].Enabled = false;
+                ControlList[i_Column].Text = ControlList[i_Column].Text = string.Format("{0}\n✖", i_Column);
+                ControlList[i_Column].BackColor = System.Drawing.Color.IndianRed;
+            }
         }
 
         public Connect4Logic.Player CurrentPlayer
