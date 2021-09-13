@@ -1,9 +1,8 @@
-﻿
-using System;
+﻿using System;
 
 namespace Connect4GUI
 {
-    partial class GameBoardGUI
+    public partial class GameBoardGUI
     {
         /// <summary>
         /// Required designer variable.
@@ -20,6 +19,7 @@ namespace Connect4GUI
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -117,24 +117,24 @@ namespace Connect4GUI
             this.PerformLayout();
 
         }
-        private void IntalizeControlButtons(System.Windows.Forms.TableLayoutPanel i_Grid)
+        private void intalizeControlButtons(System.Windows.Forms.TableLayoutPanel i_Grid)
         {
-            for (int i = 0; i < SettingsWindow.S_Gameplay.Board.Columns; i++)
+            for (int i = 0; i < SettingsWindow.s_Gameplay.Board.Columns; i++)
             {
-                ControlButton control = new ControlButton(i+1, this, SettingsWindow.S_Gameplay);
-                control.CurrentPlayer = SettingsWindow.S_Gameplay.Player1;
+                ControlButton control = new ControlButton(i+1, this, SettingsWindow.s_Gameplay);
+                control.CurrentPlayer = SettingsWindow.s_Gameplay.Player1;
                 i_Grid.Controls.Add(control);
                 PlayerControls.ControlList.Add(control);
             }
         }
 
-        private void IntalizeCellButtons(System.Windows.Forms.TableLayoutPanel i_Grid) 
+        private void intalizeCellButtons(System.Windows.Forms.TableLayoutPanel i_Grid) 
         {
             int columnIndex = 0;
             int rowIndex = 0;
-            foreach (Connect4Logic.BoardNode node in SettingsWindow.S_Gameplay.Board.BoardMatrix) 
+            foreach (Connect4Logic.BoardNode node in SettingsWindow.s_Gameplay.Board.BoardMatrix) 
             {
-                CelllButton cell = new CelllButton(columnIndex + 1, rowIndex + 1, node);
+                CelllButton cell = new CelllButton(node);
                 BoardCells[rowIndex, columnIndex] = cell;
                 columnIndex++;
                 columnIndex %= SettingsWindow.s_Board.Columns;

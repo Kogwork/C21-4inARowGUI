@@ -19,7 +19,6 @@ namespace Connect4Logic
         private int m_LastColumnInsertion;
         private Chips m_Chips;
         private bool m_IsGameTerminatedByPlayer;
-        private BoardUi m_BoardUi;
 
         public Player()
         {
@@ -28,7 +27,6 @@ namespace Connect4Logic
         public Player(Board i_Board, bool i_IsAi, Chips i_Chips)
         {
             IsAi = i_IsAi;
-            initPlayerName();
             Board = i_Board;
             PlayerTurn = false;
             IsGameTerminatedByPlayer = false;
@@ -162,31 +160,6 @@ namespace Connect4Logic
             set
             {
                 m_NumberOfWins = value;
-            }
-        }
-
-        public BoardUi BoardUi
-        {
-            get
-            {
-                return m_BoardUi;
-            }
-
-            set
-            {
-                m_BoardUi = value;
-            }
-        }
-
-        private void initPlayerName()
-        {
-            if (!IsAi)
-            {
-                Name = BoardUi.PlayerInitPlayerName();
-            }
-            else
-            {
-                Name = sr_DeafultComputerName;
             }
         }
 

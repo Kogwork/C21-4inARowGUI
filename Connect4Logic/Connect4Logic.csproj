@@ -41,11 +41,9 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="BoardNode.cs" />
-    <Compile Include="BoardUi.cs" />
     <Compile Include="Chips.cs" />
     <Compile Include="GamePlay.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

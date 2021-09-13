@@ -15,23 +15,9 @@ namespace Connect4Logic
         private static int m_Columns;
         private BoardNode[,] m_BoardMatrix;
         private int[] m_ArrayToCheckUserInsertion;
-        private BoardUi m_BoardUi;
 
         public Board()
         {
-        }
-
-        public BoardUi BoardUi
-        {
-            get
-            {
-                return m_BoardUi;
-            }
-
-            set
-            {
-                m_BoardUi = value;
-            }
         }
 
         public int[] ArrayToCheckUserInsertion
@@ -125,30 +111,6 @@ namespace Connect4Logic
             }
 
             return flagToCheckZeroesInArray;
-        }
-
-        private static bool checkBoardSizeLimits(byte value)
-        {
-            bool isSizeLimitOk = true;
-            if (value > sr_MaxSize || value < sr_MinSize)
-            {
-                isSizeLimitOk = false;
-            }
-
-            return isSizeLimitOk;
-        }
-
-        private byte userInput()
-        {
-            string input;
-            byte inputInByte;
-
-            do
-            {
-                input = BoardUi.BoardUserInput(sr_MaxSize, sr_MinSize);
-            } while (!(byte.TryParse(input, out inputInByte) && checkBoardSizeLimits(inputInByte)));
-
-            return inputInByte;
         }
     }
 }

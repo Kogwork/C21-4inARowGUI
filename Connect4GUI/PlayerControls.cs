@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Connect4GUI
 {
     public class PlayerControls
     {
-        GameBoardGUI m_BoardGUI;
-        Connect4Logic.GamePlay m_GameBoard;
-        Connect4Logic.Player m_Player1;
-        Connect4Logic.Player m_Player2;
-        Connect4Logic.Player m_CurrentPlayer;
-        List<ControlButton> m_ControlList = new List<ControlButton>();
+        private GameBoardGUI m_BoardGUI;
+        private Connect4Logic.GamePlay m_GameBoard;
+        private Connect4Logic.Player m_Player1;
+        private Connect4Logic.Player m_Player2;
+        private Connect4Logic.Player m_CurrentPlayer;
+        private List<ControlButton> m_ControlList = new List<ControlButton>();
 
         public PlayerControls(
             Connect4Logic.GamePlay i_GameBoard,
@@ -25,38 +21,6 @@ namespace Connect4GUI
             Player2 = i_Player2;
             Player1.changeTurnState();
             SwapTurn();
-        }
-
-        public void SwapTurn() 
-        {
-            Player1.changeTurnState();
-            Player2.changeTurnState();
-
-            if (Player1.PlayerTurn) 
-            {
-                CurrentPlayer = Player1;
-            }
-            else 
-            {
-                CurrentPlayer = Player2;
-            }
-
-            foreach (ControlButton control in ControlList) 
-            {
-                control.CurrentPlayer = CurrentPlayer;
-                DisableFullControls(control.ControlsColumn - 1);
-            }
-
-        }
-
-        public void DisableFullControls(int i_Column)
-        {
-            if (!GameBoard.Board.checkUserInputIntoBoard(i_Column))
-            {
-                ControlList[i_Column].Enabled = false;
-                ControlList[i_Column].Text = ControlList[i_Column].Text = string.Format("{0}\n✖", i_Column);
-                ControlList[i_Column].BackColor = System.Drawing.Color.IndianRed;
-            }
         }
 
         public Connect4Logic.Player CurrentPlayer
@@ -134,6 +98,37 @@ namespace Connect4GUI
             set
             {
                 m_ControlList = value;
+            }
+        }
+
+        public void SwapTurn()
+        {
+            Player1.changeTurnState();
+            Player2.changeTurnState();
+
+            if (Player1.PlayerTurn)
+            {
+                CurrentPlayer = Player1;
+            }
+            else
+            {
+                CurrentPlayer = Player2;
+            }
+
+            foreach (ControlButton control in ControlList)
+            {
+                control.CurrentPlayer = CurrentPlayer;
+                disableFullControls(control.ControlsColumn - 1);
+            }
+        }
+
+        private void disableFullControls(int i_Column)
+        {
+            if (!GameBoard.Board.checkUserInputIntoBoard(i_Column))
+            {
+                ControlList[i_Column].Enabled = false;
+                ControlList[i_Column].Text = ControlList[i_Column].Text = string.Format("{0}\n✖", i_Column);
+                ControlList[i_Column].BackColor = System.Drawing.Color.IndianRed;
             }
         }
     }

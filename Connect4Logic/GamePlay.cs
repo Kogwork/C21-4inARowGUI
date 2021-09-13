@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Connect4Logic
 {
     public class GamePlay
     {
-        private const string mk_PositiveAnswer = "y";
-        private const string mk_NegativeAnswer = "n";
         private int m_RoundCounter;
         private Board m_Board;
-        private bool m_IsAgainstAi;
         private bool m_IsAnotherRound;
         private bool m_IsGameOn;
         private Player m_Player1;
         private Player m_Player2;
         private Chips m_Chips;
-        private BoardUi m_BoardUi;
 
         public GamePlay(Board i_Board)
         {
@@ -33,19 +26,7 @@ namespace Connect4Logic
             Player2 = new Player();
             Player2.PlayerSymbol = Chips.ChipsList[1];
             Player2.Board = Board;
-        }
-
-        public BoardUi BoardUi
-        {
-            get
-            {
-                return m_BoardUi;
-            }
-
-            set
-            {
-                m_BoardUi = value;
-            }
+            Player2.IsAi = true;
         }
 
         public Chips Chips
@@ -59,11 +40,6 @@ namespace Connect4Logic
             {
                 m_Chips = value;
             }
-        }
-
-        public void makeAMove(object currentPlayer, int numberOfRowsPossible)
-        {
-            throw new NotImplementedException();
         }
 
         public Player Player1
@@ -89,18 +65,6 @@ namespace Connect4Logic
             set
             {
                 m_Player2 = value;
-            }
-        }
-        public bool IsAgainstAi
-        {
-            get
-            {
-                return m_IsAgainstAi;
-            }
-
-            set
-            {
-                m_IsAgainstAi = value;
             }
         }
 
@@ -156,97 +120,6 @@ namespace Connect4Logic
             }
         }
 
-        private bool checkIfPlayerWantsAnotherRound()
-        {
-            return BoardUi.GamePlayCheckIfPlayerWantsAnotherRound();
-        }
-
-        private bool checkIfPlayAgainstAi()
-        {
-            return BoardUi.GamePlayCheckIfPlayAgainstAi();
-        }
-
-        public void GameOn()
-        {
-            Player currentPlayer = null;
-            IsAgainstAi = true;
-
-            if (checkIfPlayAgainstAi())
-            {
-                Player1.PlayerTurn = true;
-            }
-            else
-            {
-                Random randomTurnGenerator = new Random();
-                bool randomTurnIndicator;
-                randomTurnIndicator = randomTurnGenerator.NextDouble() > 0.5;
-                Player1.PlayerTurn = randomTurnIndicator;
-                Player2.PlayerTurn = !randomTurnIndicator;
-            }
-
-            while (IsGameOn)
-            {
-                while (!Board.IsBoardFull())
-                {
-                    BoardUi.PrintBoard();
-
-                    if (Player1.PlayerTurn)
-                    {
-                        currentPlayer = Player1;
-                    }
-                    else
-                    {
-                        currentPlayer = Player2;
-                    }
-
-                    if (currentPlayer.IsGameTerminatedByPlayer)
-                    {
-                        break;
-                    }
-
-                    Player1.changeTurnState();
-                    Player2.changeTurnState();
-
-                    if (checkWinCondition(currentPlayer))
-                    {
-                        BoardUi.PrintBoard();
-                        currentPlayer.Score += 1;
-                        break;
-                    }
-                    
-                    else
-                    {
-                        if (Board.IsBoardFull())
-                        {
-                            BoardUi.PrintBoard();
-                            break;
-                        }
-                    }
-                }
-
-                if (currentPlayer.IsGameTerminatedByPlayer)
-                {
-                    if (currentPlayer == Player1)
-                    {
-                        Player2.Score++;
-                    }
-                    else
-                    {
-                        Player1.Score++;
-                    }
-                    currentPlayer.IsGameTerminatedByPlayer = false;
-                }
-
-                if (checkIfPlayerWantsAnotherRound())
-                {
-                }
-                else
-                {
-                    IsGameOn = false;
-                }
-            } 
-        }
-
         public void makeAMove(Player i_Player,int i_Input)
         {
             i_Player.InsertIntoBoard(i_Input);
@@ -264,7 +137,7 @@ namespace Connect4Logic
                     counterOfChips++;
                     if (counterOfChips == 4)
                     {
-                        Console.WriteLine(string.Format("{0} won with a row!", i_Player.Name));
+                        //Console.WriteLine(string.Format("{0} won with a row!", i_Player.Name));
                         winCondition = true;
                         break;
                     }
@@ -283,7 +156,7 @@ namespace Connect4Logic
                     counterOfChips++;
                     if (counterOfChips == 4)
                     {
-                        Console.WriteLine(string.Format("{0} won with a column!", i_Player.Name));
+                        //Console.WriteLine(string.Format("{0} won with a column!", i_Player.Name));
                         winCondition = true;
                         break;
                     }
@@ -305,7 +178,7 @@ namespace Connect4Logic
                             counterOfChips++;
                             if (counterOfChips == 4)
                             {
-                                Console.WriteLine(string.Format("{0} won with a diagonal!", i_Player.Name));
+                                //Console.WriteLine(string.Format("{0} won with a diagonal!", i_Player.Name));
                                 winCondition = true;
                                 break;
                             }
@@ -331,7 +204,7 @@ namespace Connect4Logic
                         counterOfChips++;
                         if (counterOfChips == 4)
                         {
-                            Console.WriteLine(string.Format("{0} won with a diagonal!", i_Player.Name));
+                            //Console.WriteLine(string.Format("{0} won with a diagonal!", i_Player.Name));
                             winCondition = true;
                             break;
                         }

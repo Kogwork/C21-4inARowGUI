@@ -3,10 +3,10 @@ using System.Windows.Forms;
 
 namespace Connect4GUI
 {
-    partial class SettingsWindow : Form
+    public partial class SettingsWindow : Form
     {
         public static Connect4Logic.Board s_Board = new Connect4Logic.Board();
-        public static Connect4Logic.GamePlay S_Gameplay = new Connect4Logic.GamePlay(s_Board);
+        public static Connect4Logic.GamePlay s_Gameplay = new Connect4Logic.GamePlay(s_Board);
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -22,6 +22,7 @@ namespace Connect4GUI
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -51,9 +52,9 @@ namespace Connect4GUI
             // 
             // ButtonStart
             // 
-            this.ButtonStart.Location = new System.Drawing.Point(11, 158);
+            this.ButtonStart.Location = new System.Drawing.Point(14, 165);
             this.ButtonStart.Name = "ButtonStart";
-            this.ButtonStart.Size = new System.Drawing.Size(187, 23);
+            this.ButtonStart.Size = new System.Drawing.Size(238, 34);
             this.ButtonStart.TabIndex = 0;
             this.ButtonStart.Text = "Start";
             this.ButtonStart.UseVisualStyleBackColor = true;
@@ -71,7 +72,7 @@ namespace Connect4GUI
             // LabelPlayer1
             // 
             this.LabelPlayer1.AutoSize = true;
-            this.LabelPlayer1.Location = new System.Drawing.Point(25, 33);
+            this.LabelPlayer1.Location = new System.Drawing.Point(29, 33);
             this.LabelPlayer1.Name = "LabelPlayer1";
             this.LabelPlayer1.Size = new System.Drawing.Size(48, 13);
             this.LabelPlayer1.TabIndex = 2;
@@ -80,7 +81,7 @@ namespace Connect4GUI
             // CheckBoxPlayer2
             // 
             this.CheckBoxPlayer2.AutoSize = true;
-            this.CheckBoxPlayer2.Location = new System.Drawing.Point(26, 58);
+            this.CheckBoxPlayer2.Location = new System.Drawing.Point(32, 58);
             this.CheckBoxPlayer2.Name = "CheckBoxPlayer2";
             this.CheckBoxPlayer2.Size = new System.Drawing.Size(67, 17);
             this.CheckBoxPlayer2.TabIndex = 3;
@@ -90,15 +91,15 @@ namespace Connect4GUI
             // 
             // TextBoxPlayer1
             // 
-            this.TextBoxPlayer1.Location = new System.Drawing.Point(93, 30);
+            this.TextBoxPlayer1.Location = new System.Drawing.Point(105, 30);
             this.TextBoxPlayer1.Name = "TextBoxPlayer1";
-            this.TextBoxPlayer1.Size = new System.Drawing.Size(106, 20);
+            this.TextBoxPlayer1.Size = new System.Drawing.Size(128, 20);
             this.TextBoxPlayer1.TabIndex = 4;
             // 
             // LabelBoardSize
             // 
             this.LabelBoardSize.AutoSize = true;
-            this.LabelBoardSize.Location = new System.Drawing.Point(11, 95);
+            this.LabelBoardSize.Location = new System.Drawing.Point(11, 98);
             this.LabelBoardSize.Name = "LabelBoardSize";
             this.LabelBoardSize.Size = new System.Drawing.Size(61, 13);
             this.LabelBoardSize.TabIndex = 6;
@@ -107,7 +108,7 @@ namespace Connect4GUI
             // LabelRows
             // 
             this.LabelRows.AutoSize = true;
-            this.LabelRows.Location = new System.Drawing.Point(25, 119);
+            this.LabelRows.Location = new System.Drawing.Point(29, 124);
             this.LabelRows.Name = "LabelRows";
             this.LabelRows.Size = new System.Drawing.Size(37, 13);
             this.LabelRows.TabIndex = 7;
@@ -116,7 +117,7 @@ namespace Connect4GUI
             // LabelCols
             // 
             this.LabelCols.AutoSize = true;
-            this.LabelCols.Location = new System.Drawing.Point(130, 119);
+            this.LabelCols.Location = new System.Drawing.Point(164, 124);
             this.LabelCols.Name = "LabelCols";
             this.LabelCols.Size = new System.Drawing.Size(30, 13);
             this.LabelCols.TabIndex = 8;
@@ -124,29 +125,54 @@ namespace Connect4GUI
             // 
             // NumericUpDownRows
             // 
-            this.NumericUpDownRows.Location = new System.Drawing.Point(64, 117);
+            this.NumericUpDownRows.Location = new System.Drawing.Point(72, 122);
+            this.NumericUpDownRows.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.NumericUpDownRows.Minimum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
             this.NumericUpDownRows.Name = "NumericUpDownRows";
             this.NumericUpDownRows.Size = new System.Drawing.Size(35, 20);
             this.NumericUpDownRows.TabIndex = 9;
-            this.NumericUpDownRows.Maximum = Connect4Logic.Board.sr_MaxSize;
-            this.NumericUpDownRows.Minimum = Connect4Logic.Board.sr_MinSize;
+            this.NumericUpDownRows.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
             // 
             // NumericUpDownCols
             // 
-            this.NumericUpDownCols.Location = new System.Drawing.Point(165, 117);
+            this.NumericUpDownCols.Location = new System.Drawing.Point(200, 122);
+            this.NumericUpDownCols.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.NumericUpDownCols.Minimum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
             this.NumericUpDownCols.Name = "NumericUpDownCols";
             this.NumericUpDownCols.Size = new System.Drawing.Size(33, 20);
             this.NumericUpDownCols.TabIndex = 10;
-            this.NumericUpDownCols.Maximum = Connect4Logic.Board.sr_MaxSize;
-            this.NumericUpDownCols.Minimum = Connect4Logic.Board.sr_MinSize;
-
+            this.NumericUpDownCols.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
             // 
             // TextBoxPlayer2
             // 
             this.TextBoxPlayer2.Enabled = false;
-            this.TextBoxPlayer2.Location = new System.Drawing.Point(93, 58);
+            this.TextBoxPlayer2.Location = new System.Drawing.Point(105, 58);
             this.TextBoxPlayer2.Name = "TextBoxPlayer2";
-            this.TextBoxPlayer2.Size = new System.Drawing.Size(106, 20);
+            this.TextBoxPlayer2.Size = new System.Drawing.Size(128, 20);
             this.TextBoxPlayer2.TabIndex = 11;
             this.TextBoxPlayer2.Text = "[Computer]";
             // 
@@ -154,7 +180,7 @@ namespace Connect4GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(209, 192);
+            this.ClientSize = new System.Drawing.Size(264, 211);
             this.Controls.Add(this.TextBoxPlayer2);
             this.Controls.Add(this.NumericUpDownCols);
             this.Controls.Add(this.NumericUpDownRows);
@@ -169,11 +195,11 @@ namespace Connect4GUI
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsWindow";
             this.Text = "Game Settings";
-            S_Gameplay.Player2.IsAi = true;
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownCols)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
@@ -182,8 +208,8 @@ namespace Connect4GUI
             s_Board.Columns = (int)NumericUpDownCols.Value;
             s_Board.InitializeArray();
             s_Board.InitializeMatrix();
-            S_Gameplay.Player1.Name = TextBoxPlayer1.Text;
-            S_Gameplay.Player2.Name = TextBoxPlayer2.Text;
+            s_Gameplay.Player1.Name = TextBoxPlayer1.Text;
+            s_Gameplay.Player2.Name = TextBoxPlayer2.Text;
 
             if (this.TextBoxPlayer1.TextLength == 0 || this.TextBoxPlayer1.TextLength == 0)
             {
@@ -200,13 +226,12 @@ namespace Connect4GUI
         {
             TextBoxPlayer2.Enabled = CheckBoxPlayer2.Checked;
             TextBoxPlayer2.Text = string.Empty;
-            S_Gameplay.IsAgainstAi = false;
-            S_Gameplay.Player2.IsAi = false;
+            s_Gameplay.Player2.IsAi = false;
 
             if (!TextBoxPlayer2.Enabled)
             {
+                s_Gameplay.Player2.IsAi = true;
                 TextBoxPlayer2.Text = Connect4Logic.Player.sr_DeafultComputerName;
-                S_Gameplay.IsAgainstAi = true;
             }
         }
 
@@ -225,4 +250,3 @@ namespace Connect4GUI
         private System.Windows.Forms.TextBox TextBoxPlayer2;
     }
 }
-

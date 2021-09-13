@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
 
 namespace Connect4GUI
 {
@@ -22,45 +18,18 @@ namespace Connect4GUI
             ControlsColumn = i_count;
             CurrentGameBoard = i_CurrentGameBoard;
             GameBoard = i_GameBoard;
-            ControlButtonDesign();
+            controlButtonDesign();
         }
 
-        private void ControlButtonDesign() 
+        private void controlButtonDesign() 
         {
             this.FlatAppearance.BorderColor = System.Drawing.Color.Green;
             this.BackColor = System.Drawing.Color.LightGreen;
             this.FlatAppearance.BorderSize = 2;
             this.FlatStyle = FlatStyle.Flat;
-            this.Name = string.Format("ControlButton{0}", ControlsColumn);
             this.Size = new System.Drawing.Size(sr_ControlButtonDeafultSize, sr_ControlButtonDeafultSize);
             this.Text = string.Format("{0}\n▼", ControlsColumn);
             this.Click += new EventHandler(this.ControlButton_Click);
-        }
-
-        private void ControlButton_Click(object sender, EventArgs e)
-        {
-            CurrentGameBoard.UpdateBoardCells(GameBoard.Board.ArrayToCheckUserInsertion[ControlsColumn - 1], ControlsColumn - 1);
-            CurrentPlayer.InsertIntoBoard(ControlsColumn);
-            if (CurrentGameBoard.CheckIfThereIsAWinner()) 
-            {
-                return;
-            }
-
-            if (GameBoard.Player2.IsAi)
-            {
-                int computerInput;
-                Random randomInputForAi = new Random();
-                Task.Delay(400).Wait();
-
-                do
-                {
-                    computerInput = randomInputForAi.Next(1, GameBoard.Board.Columns + 1);
-                } while (!GameBoard.Board.checkUserInputIntoBoard(computerInput - 1));
-
-                CurrentGameBoard.UpdateBoardCells(GameBoard.Board.ArrayToCheckUserInsertion[computerInput - 1], computerInput - 1);
-                CurrentPlayer.InsertIntoBoard(computerInput);
-                CurrentGameBoard.CheckIfThereIsAWinner();
-            }
         }
 
         public Connect4Logic.Player CurrentPlayer
@@ -112,6 +81,33 @@ namespace Connect4GUI
             set
             {
                 m_ControlsColumn = value;
+            }
+        }
+
+        private void ControlButton_Click(object sender, EventArgs e)
+        {
+            CurrentGameBoard.UpdateBoardCells(GameBoard.Board.ArrayToCheckUserInsertion[ControlsColumn - 1], ControlsColumn - 1);
+            CurrentPlayer.InsertIntoBoard(ControlsColumn);
+            if (CurrentGameBoard.CheckIfThereIsAWinner())
+            {
+                return;
+            }
+
+            if (GameBoard.Player2.IsAi)
+            {
+                int computerInput;
+                Random randomInputForAi = new Random();
+                Task.Delay(400).Wait();
+
+                do
+                {
+                    computerInput = randomInputForAi.Next(1, GameBoard.Board.Columns + 1);
+                }
+                while (!GameBoard.Board.checkUserInputIntoBoard(computerInput - 1));
+
+                CurrentGameBoard.UpdateBoardCells(GameBoard.Board.ArrayToCheckUserInsertion[computerInput - 1], computerInput - 1);
+                CurrentPlayer.InsertIntoBoard(computerInput);
+                CurrentGameBoard.CheckIfThereIsAWinner();
             }
         }
     }
